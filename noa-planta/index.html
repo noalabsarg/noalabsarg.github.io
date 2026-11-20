@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOA Planta · Demo</title>
+<meta name="description" content="Demo de NOA Planta: mantenimiento industrial con dashboard, mapa de planta, fichas de equipos, vibraciones, repuestos y órdenes de trabajo.">
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<div class="demo-bar"><span><a href="../index.html">← NOA Labs</a> · NOA Planta</span><span class="tag">DEMO · PLANTA DE EJEMPLO · LOS CAMBIOS SE BORRAN AL RECARGAR</span><a href="../index.html#contacto">Quiero esto en mi planta</a></div>
+<div class="shell">
+  <aside class="side">
+    <div class="org"><img src="../assets/img/noa-labs-icono.png" alt=""><div>Planta Demo<small>NOA PLANTA</small></div></div>
+    <button class="nav" data-v="dash">Dashboard</button>
+    <button class="nav" data-v="mapa">Mapa de planta</button>
+    <button class="nav" data-v="equipos">Equipos</button>
+    <button class="nav" data-v="vib">Vibraciones <em id="np-badge-vib"></em></button>
+    <button class="nav" data-v="rep">Repuestos <em id="np-badge-rep"></em></button>
+    <button class="nav" data-v="ot">Órdenes de trabajo</button>
+    <div class="who">Jefe de mantenimiento</div>
+  </aside>
+  <main class="main">
+    <nav class="mnav" aria-label="Secciones"></nav>
+    <div id="view"></div>
+  </main>
+</div>
+<script src="../assets/js/app-common.js"></script>
+<script src="../assets/js/noa-planta.js"></script>
+</body>
+</html>
