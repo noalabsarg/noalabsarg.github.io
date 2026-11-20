@@ -1,5 +1,6 @@
 /* NOA Planta · demo funcional (mantenimiento industrial) */
 (function(){
+  NL.setClock(10, 20);
   const root = document, view = document.getElementById("view");
   const TODAY = new Date(2026, 10, 20);
   const MONTHS = ["Dic","Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov"];

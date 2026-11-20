@@ -113,6 +113,10 @@ window.NL = (function(){
     frm.addEventListener("submit", e => { e.preventDefault(); const v = inp.value.trim(); if (!v) return; inp.value = ""; say(v, "me"); onText && onText(v); });
     return {say, bot, options, onText: fn => onText = fn, clear: () => box.innerHTML = ""};
   }
+  /* reloj de la demo: arranca en una hora fija y avanza un poco con cada acción, para que todo sea coherente */
+  let clk = 18 * 60 + 55;
+  const setClock = (h, m) => clk = h * 60 + m;
+  const now = () => { clk += 1 + Math.floor(Math.random() * 3); return `${String(Math.floor(clk / 60) % 24).padStart(2, "0")}:${String(clk % 60).padStart(2, "0")}`; };
   const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-  return {$, $$, esc, ars, nf, fmtD, addDays, pill, toast, flash, form, line, bars, router, whatsapp, norm};
+  return {$, $$, esc, ars, nf, fmtD, addDays, pill, toast, flash, form, line, bars, router, whatsapp, norm, now, setClock};
 })();

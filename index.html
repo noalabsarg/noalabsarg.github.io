@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NOA Labs</title>
-<meta name="description" content="Productos propios y software a medida para comercios, servicios e industrias del NOA: mantenimiento de planta, stock y ventas, turnos y WhatsApp con inteligencia artificial.">
+<title>NOA Labs · Soluciones digitales para negocios del NOA</title>
+<meta name="description" content="Sistemas por rubro, adaptados 100% a tu negocio: comercios, gastronomía, gimnasios y clubes, cabañas e inmobiliarias, servicios e industria. WhatsApp con IA, stock, turnos, reservas y cobros. Salta, Jujuy, Tucumán, Catamarca y Santiago del Estero.">
 <meta name="theme-color" content="#0E1830">
-<meta property="og:title" content="NOA Labs · Ordená tu negocio">
-<meta property="og:description" content="Software a medida y productos propios para negocios de Salta, Jujuy y Tucumán.">
+<meta property="og:title" content="NOA Labs · Dejá de perder ventas">
+<meta property="og:description" content="Soluciones digitales por rubro para negocios del NOA: Salta, Jujuy, Tucumán, Catamarca y Santiago del Estero. Diagnóstico gratis.">
 <meta property="og:image" content="assets/img/noa-labs-logo.png">
 <link rel="icon" href="assets/img/favicon.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -22,12 +22,12 @@
     <a class="brand" href="index.html" aria-label="NOA Labs, inicio"><img src="assets/img/noa-labs-icono.png" alt=""><span>NOA LABS<span class="sl">/</span></span></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menú</button>
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#noa-planta">NOA Planta</a>
-      <a href="#noa-stock">NOA Stock</a>
-      <a href="#noa-agenda">NOA Agenda</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#proceso">Cómo trabajamos</a>
-      <a class="btn btn-primary btn-sm" data-wa href="#contacto">Escribinos por WhatsApp</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#seguridad">Datos seguros</a>
+      <a href="#preguntas">Preguntas</a>
+      <a class="btn btn-primary btn-sm" href="#contacto">Diagnóstico gratis</a>
     </nav>
   </div>
 </header>
@@ -37,49 +37,227 @@
   <canvas id="topo" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
-      <p class="eyebrow">Salta · Jujuy · Tucumán</p>
-      <h1 class="disp" style="margin-top:14px">Ordená tu negocio<span class="sl">/</span></h1>
-      <p class="lead">Productos propios y software a la medida para comercios, servicios e industrias del NOA.</p>
-      <div class="ctas"><a class="btn btn-primary" data-wa href="#contacto">Escribinos por WhatsApp</a><a class="btn btn-ghost" href="#productos">Ver productos</a></div>
+      <p class="eyebrow">Salta · Jujuy · Tucumán · Catamarca · Santiago del Estero</p>
+      <h1 class="disp" style="margin-top:26px">Dejá de perder ventas<span class="sl">/</span></h1>
+      <p class="lead">Mensajes que se contestan tarde, productos que faltan, turnos vacíos, comisiones de apps. Son ventas que nunca llegan a la caja, por eso no las ves. Las medimos en tu negocio y las recuperamos con sistemas hechos para tu rubro.</p>
+      <div class="ctas"><a class="btn btn-primary" href="#calculadora">Calculá cuánto perdés</a><a class="btn btn-ghost" href="#contacto">Pedí tu diagnóstico gratis</a></div>
     </div>
     <div class="hero-mock">
-      <a class="mock-link laptop" href="noa-planta/index.html" aria-label="Abrir la demo de NOA Planta">
-        <div class="screen"><img src="assets/img/lap-planta.jpg" alt="Dashboard de NOA Planta con alertas de vibración, órdenes de trabajo y preventivos"></div><div class="base"></div>
+      <a class="mock-link laptop" href="noa-mostrador/index.html" aria-label="Abrir la demo de NOA Mostrador">
+        <div class="screen"><video src="assets/video/mostrador.mp4" poster="assets/img/lap-mostrador.jpg" muted loop playsinline autoplay preload="auto" aria-label="NOA Mostrador en uso"></video></div><div class="base"></div>
       </a>
-      <a class="mobile" href="noa-stock/index.html" aria-label="Abrir la demo de NOA Stock"><img src="assets/img/mob-stock.jpg" alt="NOA Stock en el celular"></a>
+      <a class="mobile" href="noa-club/index.html" aria-label="Abrir la demo de NOA Club"><img src="assets/img/mob-club.jpg" alt="NOA Club en el celular: control de ingreso"></a>
     </div>
   </div>
 </section>
 
-<section class="access" id="productos" aria-label="Productos">
-  <div class="wrap access-grid">
-    <a class="acc" href="#noa-planta"><span class="st">INDUSTRIA Y MANTENIMIENTO</span><h3>NOA Planta<span class="sl">/</span></h3><p>Plantas, frigoríficos, bodegas, contratistas y talleres industriales.</p><span class="go">Conocer →</span></a>
-    <a class="acc" href="#noa-stock"><span class="st">COMERCIOS</span><h3>NOA Stock<span class="sl">/</span></h3><p>Ferreterías, almacenes, distribuidoras, corralones y tiendas.</p><span class="go">Conocer →</span></a>
-    <a class="acc" href="#noa-agenda"><span class="st">SERVICIOS</span><h3>NOA Agenda<span class="sl">/</span></h3><p>Talleres, consultorios, estudios, gimnasios y servicios técnicos.</p><span class="go">Conocer →</span></a>
+<section class="facts-strip" aria-label="Datos">
+  <div class="wrap fs-grid">
+    <div><b>93,5&nbsp;%</b><span>de los usuarios de internet en Argentina usó WhatsApp en el último mes. Tus clientes ya están ahí. <a class="ref" href="#fuentes">[1]</a></span></div>
+    <div><b>7x</b><span>más chances de cerrar una venta si respondés la consulta en la primera hora. <a class="ref" href="#fuentes">[3]</a></span></div>
+    <div><b>31&nbsp;%</b><span>de los clientes que no encuentran lo que buscan se lo compra a otro negocio. <a class="ref" href="#fuentes">[5]</a></span></div>
+    <div><b>23&nbsp;%</b><span>de las empresas estudiadas por Harvard nunca respondió una consulta. Los clientes no te avisan que se fueron. <a class="ref" href="#fuentes">[4]</a></span></div>
+  </div>
+</section>
+
+<section class="sec" id="por-que">
+  <div class="wrap">
+    <p class="eyebrow">Si ya te va bien</p>
+    <h2 class="disp" style="margin-top:10px">¿Para qué cambiar<span class="sl">?</span></h2>
+    <p class="intro">Porque a un negocio le puede ir bien y aun así perder plata todos los días. La venta que se fue no aparece en ningún cuaderno: el cliente que no recibió respuesta no te avisa, simplemente le compra a otro.</p>
+    <div class="why-grid">
+      <article><h3>Te va bien con vos adentro</h3><p>Si para que el negocio funcione tenés que estar contestando el celular, controlando el stock y anotando turnos, no es un negocio que te va bien: es un trabajo que no podés soltar. Un sistema hace que funcione igual cuando no estás.</p></article>
+      <article><h3>Tu competencia contesta a las 23&nbsp;h</h3><p>Quien responde primero se queda con la venta. El estudio de Harvard sobre 1,25 millones de consultas lo midió: contestar en la primera hora multiplica por 7 las chances, y tardar un día las divide por 60. <a class="ref" href="#fuentes">[3]</a></p></article>
+      <article><h3>Crecer sin contratar</h3><p>Duplicar los mensajes, las reservas o los socios no debería obligarte a duplicar el personal. Lo repetitivo lo hace el sistema y tu equipo atiende lo que importa.</p></article>
+      <article><h3>Cada comisión es margen tuyo</h3><p>Las apps de delivery se quedan con entre el 18 y el 33&nbsp;% de cada pedido, y Booking con cerca del 15&nbsp;% de cada reserva. <a class="ref" href="#fuentes">[7] [8]</a> Cada cliente que te compra directo es plata que queda en tu caja.</p></article>
+    </div>
+    <h3 class="why-sub">¿Por qué con nosotros y no con otro<span class="sl">?</span></h3>
+    <div class="vs">
+      <div><b>Medimos antes de vender</b><span>El diagnóstico es en tu negocio y con tus números. Si no hay plata para recuperar, te lo decimos.</span></div>
+      <div><b>Sistemas propios por rubro</b><span>No es una plantilla ni un programa genérico pensado para otro país: lo adaptamos a cómo trabajás vos.</span></div>
+      <div><b>Estamos acá</b><span>Soporte presencial en Salta y Jujuy. Cuando algo falla, no esperás a un call center.</span></div>
+      <div><b>Por escrito y sin atarte</b><span>Presupuesto cerrado antes de empezar, mantenimiento sin permanencia y tus datos siempre son tuyos.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="calculadora" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div class="wrap">
+    <p class="eyebrow">Calculadora</p>
+    <h2 class="disp" style="margin-top:10px">¿Cuánto se te escapa<span class="sl">?</span></h2>
+    <p class="intro">Elegí tu rubro y poné los números de tu negocio. Los valores que aparecen son de ejemplo: cambialos por los tuyos. La cuenta usa solo tus datos y tasas publicadas, y siempre te muestra cómo llegó al resultado.</p>
+    <div class="calc" id="calc">
+      <div class="calc-tabs" role="tablist" aria-label="Rubro"></div>
+      <div class="calc-body"><form class="calc-fields" onsubmit="return false"></form><div class="calc-out" aria-live="polite"></div></div>
+    </div>
+    <p class="calc-note">Es una estimación. En el diagnóstico gratis la medimos de verdad en tu negocio.</p>
+  </div>
+</section>
+
+<section class="sec" id="soluciones" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div class="wrap">
+    <p class="eyebrow">Soluciones por rubro</p>
+    <h2 class="disp" style="margin-top:10px">Elegí tu rubro<span class="sl">/</span></h2>
+    <p class="intro">Cada solución arranca de una base probada para tu rubro. Después la adaptamos a cómo trabajás vos: tus productos, tus horarios, tus precios y tu forma de cobrar. Probá las demos, son los sistemas funcionando.</p>
+    <div class="rub-grid">
+      <div class="rub"><span class="st">COMERCIOS</span><h3>NOA Mostrador<span class="sl">/</span></h3><p>Almacenes, ferreterías, kioscos, distribuidoras y tiendas.</p><div class="links"><a href="noa-mostrador/index.html">Probar demo →</a><a href="#noa-mostrador">Ver qué hace</a></div></div>
+      <div class="rub"><span class="st">GASTRONOMÍA</span><h3>NOA Mesa<span class="sl">/</span></h3><p>Restaurantes, bares, cafés, rotiserías y heladerías.</p><div class="links"><a href="noa-mesa/index.html">Probar demo →</a><a href="#noa-mesa">Ver qué hace</a></div></div>
+      <div class="rub"><span class="st">DEPORTE</span><h3>NOA Club<span class="sl">/</span></h3><p>Gimnasios, boxeo, clubes, crossfit, pádel y academias de danza.</p><div class="links"><a href="noa-club/index.html">Probar demo →</a><a href="#noa-club">Ver qué hace</a></div></div>
+      <div class="rub"><span class="st">ALOJAMIENTO E INMUEBLES</span><h3>NOA Llave<span class="sl">/</span></h3><p>Cabañas, hostels, alquiler temporario e inmobiliarias.</p><div class="links"><a href="noa-llave/index.html">Probar demo →</a><a href="#noa-llave">Ver qué hace</a></div></div>
+      <div class="rub"><span class="st">SERVICIOS</span><h3>NOA Turno<span class="sl">/</span></h3><p>Talleres, peluquerías, estética, consultorios y estudios.</p><div class="links"><a href="noa-turno/index.html">Probar demo →</a><a href="#noa-turno">Ver qué hace</a></div></div>
+      <div class="rub"><span class="st">INDUSTRIA</span><h3>NOA Planta<span class="sl">/</span></h3><p>Plantas, frigoríficos, bodegas, contratistas y talleres industriales.</p><div class="links"><a href="noa-planta/index.html">Probar demo →</a><a href="#noa-planta">Ver qué hace</a></div></div>
+      <div class="rub custom"><div><span class="st">A MEDIDA</span><h3 style="margin-top:8px">¿Tu rubro no está<span class="sl">?</span></h3><p style="margin-top:8px">Lo diseñamos para vos. Contanos cómo funciona tu negocio y armamos la solución desde cero, con la misma base que usamos en todos los rubros.</p></div><a class="btn btn-primary" data-wa="Hola NOA Labs, mi rubro no está en la web y quiero contarles cómo funciona mi negocio." href="#contacto">Contanos tu negocio</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="primeros" style="padding-top:20px">
+  <div class="wrap">
+    <div class="offer">
+      <div>
+        <p class="eyebrow">Lanzamiento</p>
+        <h2 class="disp" style="margin-top:10px">Primeros 5 negocios del NOA<span class="sl">/</span></h2>
+        <p>Estamos sumando los primeros negocios de la región. Para ellos, condiciones especiales a cambio de algo simple: que nos cuenten cómo les fue.</p>
+        <p class="seats">QUEDAN 5 LUGARES</p>
+      </div>
+      <div>
+        <ul>
+          <li>Diagnóstico gratis en tu negocio</li>
+          <li>50&nbsp;% de descuento en la instalación</li>
+          <li>Primer mes de mantenimiento sin cargo</li>
+          <li>A cambio: tu opinión, y con tu permiso, tu caso en esta web</li>
+        </ul>
+        <div class="ctas"><a class="btn btn-primary" data-wa="Hola NOA Labs, quiero ser uno de los primeros 5 negocios." href="#contacto">Quiero uno de los lugares</a></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="band" aria-hidden="true"><div><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span><span>Soluciones digitales del norte</span></div></div>
 <div class="summit" style="background-image:url('assets/img/cerros-puna-bn.jpg')" role="img" aria-label="Cerros de la Puna salteña en blanco y negro"></div>
 
-<section class="sec" id="ruta">
+<section class="sec" id="crece">
   <div class="wrap">
-    <p class="eyebrow">Producto digital</p>
-    <h2 class="disp" style="margin-top:10px">Producto digital<span class="sl">/</span></h2>
-    <p class="intro">Construimos productos propios a partir de problemas reales de negocios del norte. Cada uno sale a la calle cuando ya resolvió el problema en un negocio de verdad.</p>
-    <div class="road-grid">
-      <div class="road-c"><span class="st">BASE PROBADA EN PLANTA</span><h3>NOA Planta</h3><p>Nació del trabajo diario de mantenimiento en una planta industrial de la Puna.</p></div>
-      <div class="road-c here"><span class="here-tag">ESTAMOS ACÁ</span><span class="st">SUMANDO PRIMEROS COMERCIOS</span><h3>NOA Stock</h3><p>WhatsApp con IA, stock y ventas conectados.</p></div>
-      <div class="road-c"><span class="st">SUMANDO PRIMEROS NEGOCIOS</span><h3>NOA Agenda</h3><p>Turnos, recordatorios y clientes que vuelven.</p></div>
-      <div class="road-c"><span class="st">EN PLANIFICACIÓN</span><h3>Lo próximo</h3><p>Monitoreo con sensores de frío y energía para pymes.</p></div>
+    <p class="eyebrow">Producto, presencia y transformación digital</p>
+    <h2 class="disp" style="margin-top:10px">Crece con tu negocio<span class="sl">/</span></h2>
+    <p class="intro">No hace falta hacer todo de una. Empezás por lo que más te duele y vas sumando partes cuando las necesitás, sin cambiar de sistema ni volver a cargar nada.</p>
+    <div class="grow">
+      <div><h3>Empezás por lo urgente</h3><p>Lo que hoy te hace perder más tiempo o plata. Muchas veces es el WhatsApp, que no da abasto.</p><div class="chips"><span>WhatsApp con IA</span><span>Web y Google Maps</span><span>Catálogo o carta online</span></div></div>
+      <div><h3>Sumás módulos</h3><p>Cuando el negocio lo pide, se agregan partes que ya están conectadas entre sí.</p><div class="chips"><span>Stock</span><span>Ventas</span><span>Turnos</span><span>Reservas</span><span>Socios</span><span>Cobros</span><span>Reportes</span></div></div>
+      <div><h3>Conectamos todo</h3><p>Para negocios más grandes: integraciones, varias sucursales y desarrollos a medida.</p><div class="chips"><span>Mercado Pago</span><span>Facturación ARCA</span><span>Cuentas y finanzas</span><span>Booking y Airbnb</span><span>Sucursales</span><span>Sensores</span><span>Tableros</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="product" id="noa-planta">
+<section class="product" id="noa-mostrador">
   <div class="wrap">
     <div class="p-text">
-      <p class="eyebrow">Industria y mantenimiento</p>
+      <p class="eyebrow">Comercios</p>
+      <h2 class="disp" style="margin-top:10px">NOA Mostrador<span class="sl">/</span></h2>
+      <p class="for">Almacenes · ferreterías · kioscos · distribuidoras · tiendas</p>
+      <ul class="benefits">
+        <li><b>Tu WhatsApp responde solo</b><span>Precios, stock y horarios al instante, también a las 23 h. Lo que no sabe, te lo deriva.</span></li>
+        <li><b>Cada venta descuenta el stock</b><span>Mostrador, WhatsApp o Instagram: todo queda registrado y te avisa qué reponer y a qué proveedor.</span></li>
+        <li><b>Sabés qué te deja plata</b><span>Márgenes, productos que más venden y días de stock que te quedan, para comprar mejor.</span></li>
+      </ul>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>31 %</b><span>de los clientes que no encuentran un producto se lo compra a otro negocio. <a class="ref" href="#fuentes">[5]</a></span></div><div><b>4 %</b><span>de las ventas se pierde por faltantes de stock, en promedio. <a class="ref" href="#fuentes">[5]</a></span></div><div><b>7x</b><span>más chances de cerrar una venta si contestás la consulta dentro de la primera hora. <a class="ref" href="#fuentes">[3]</a></span></div><a class="calc-link" href="#calculadora" data-calc="comercio">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-mostrador/index.html">Probá NOA Mostrador</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de comercios y quiero consultar por NOA Mostrador." href="#contacto">Consultar</a></div>
+    </div>
+    <div class="p-mock">
+      <a class="mock-link laptop" href="noa-mostrador/index.html" aria-label="Abrir la demo de NOA Mostrador"><div class="screen"><video src="assets/video/mostrador.mp4" poster="assets/img/lap-mostrador.jpg" muted loop playsinline preload="none" aria-label="NOA Mostrador en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-mostrador/index.html#stock" aria-label="Abrir NOA Mostrador en el celular"><img src="assets/img/mob-mostrador.jpg" alt="NOA Mostrador en el celular"></a>
+      <p class="p-note">Demo de una ferretería de ejemplo. Escribile al WhatsApp simulado y mirá cómo baja el stock.</p>
+    </div>
+  </div>
+</section>
+<section class="product flip" id="noa-mesa">
+  <div class="wrap">
+    <div class="p-text">
+      <p class="eyebrow">Gastronomía</p>
+      <h2 class="disp" style="margin-top:10px">NOA Mesa<span class="sl">/</span></h2>
+      <p class="for">Restaurantes · bares · cafés · rotiserías · heladerías</p>
+      <ul class="benefits">
+        <li><b>Pedidos y reservas por WhatsApp, solos</b><span>El cliente pide delivery, retiro o mesa, y el pedido entra directo a la pantalla de cocina.</span></li>
+        <li><b>Del salón a la cocina sin papelitos</b><span>Cada mesa con su consumo, comandas en pantalla y cobro con cualquier medio de pago.</span></li>
+        <li><b>La carta siempre al día</b><span>Si se termina un plato, deja de ofrecerse al instante. La caja te muestra qué es lo que más factura.</span></li>
+      </ul>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>18–33 %</b><span>es lo que cobran las apps de delivery en Argentina por cada pedido. <a class="ref" href="#fuentes">[7]</a></span></div><div><b>72,4 %</b><span>de los consumidores está más dispuesto a comprarle a una marca que atiende por mensajes. <a class="ref" href="#fuentes">[2]</a></span></div><div><b>76 %</b><span>de quienes buscan algo cerca en el celular visita un negocio ese mismo día. <a class="ref" href="#fuentes">[6]</a></span></div><a class="calc-link" href="#calculadora" data-calc="gastro">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-mesa/index.html">Probá NOA Mesa</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de gastronomía y quiero consultar por NOA Mesa." href="#contacto">Consultar</a></div>
+    </div>
+    <div class="p-mock">
+      <a class="mock-link laptop" href="noa-mesa/index.html" aria-label="Abrir la demo de NOA Mesa"><div class="screen"><video src="assets/video/mesa.mp4" poster="assets/img/lap-mesa.jpg" muted loop playsinline preload="none" aria-label="NOA Mesa en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-mesa/index.html#cocina" aria-label="Abrir NOA Mesa en el celular"><img src="assets/img/mob-mesa.jpg" alt="NOA Mesa en el celular"></a>
+      <p class="p-note">Demo de un bodegón de ejemplo. Pedí unas empanadas por el WhatsApp simulado.</p>
+    </div>
+  </div>
+</section>
+<section class="product" id="noa-club">
+  <div class="wrap">
+    <div class="p-text">
+      <p class="eyebrow">Deporte</p>
+      <h2 class="disp" style="margin-top:10px">NOA Club<span class="sl">/</span></h2>
+      <p class="for">Gimnasios · boxeo · clubes · crossfit · pádel · danza</p>
+      <ul class="benefits">
+        <li><b>Pagó, entra</b><span>El molinete valida la cuota con DNI o QR. Cuando registrás el pago, el socio queda habilitado en el momento.</span></li>
+        <li><b>Clases con cupo</b><span>Los socios reservan su lugar por WhatsApp. Si la clase se llena o la cuota venció, el sistema lo frena solo.</span></li>
+        <li><b>Cobranza sin perseguir a nadie</b><span>Aviso automático antes del vencimiento, ficha de cada socio con su asistencia y las finanzas del mes.</span></li>
+      </ul>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>1 de 3</b><span>socios deja el gimnasio cada año: la retención promedio de la industria es 66,4 %. <a class="ref" href="#fuentes">[9]</a></span></div><div><b>~50 %</b><span>de los socios nuevos se va antes de los 6 meses, según cifras de la industria. <a class="ref" href="#fuentes">[9]</a></span></div><div><b>50 %</b><span>menos chances de darse de baja tienen los socios que entrenan en grupo. <a class="ref" href="#fuentes">[10]</a></span></div><a class="calc-link" href="#calculadora" data-calc="deporte">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-club/index.html">Probá NOA Club</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de deporte y quiero consultar por NOA Club." href="#contacto">Consultar</a></div>
+    </div>
+    <div class="p-mock">
+      <a class="mock-link laptop" href="noa-club/index.html" aria-label="Abrir la demo de NOA Club"><div class="screen"><video src="assets/video/club.mp4" poster="assets/img/lap-club.jpg" muted loop playsinline preload="none" aria-label="NOA Club en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-club/index.html#ingreso" aria-label="Abrir NOA Club en el celular"><img src="assets/img/mob-club.jpg" alt="NOA Club en el celular"></a>
+      <p class="p-note">Demo de un gimnasio de ejemplo. La socia del WhatsApp tiene la cuota vencida: mirá qué pasa cuando paga.</p>
+    </div>
+  </div>
+</section>
+<section class="product flip" id="noa-llave">
+  <div class="wrap">
+    <div class="p-text">
+      <p class="eyebrow">Alojamiento e inmuebles</p>
+      <h2 class="disp" style="margin-top:10px">NOA Llave<span class="sl">/</span></h2>
+      <p class="for">Cabañas · hostels · alquiler temporario · inmobiliarias</p>
+      <ul class="benefits">
+        <li><b>Reservas a cualquier hora</b><span>El WhatsApp responde disponibilidad y precio a las 23 h y reserva con seña, sin que estés pendiente del celular.</span></li>
+        <li><b>Todos los canales en un calendario</b><span>WhatsApp, Instagram, Booking y Airbnb en un mismo lugar, para que no se pisen dos reservas.</span></li>
+        <li><b>Propiedades y alquileres al día</b><span>Interesados, visitas, vencimiento de contratos, próximos ajustes y el cobro de cada mes.</span></li>
+      </ul>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>15 %</b><span>es la comisión típica de Booking por cada reserva, con un rango del 10 al 25 %. <a class="ref" href="#fuentes">[8]</a></span></div><div><b>93,5 %</b><span>de los usuarios de internet en Argentina usó WhatsApp en el último mes. <a class="ref" href="#fuentes">[1]</a></span></div><div><b>60x</b><span>más chances de concretar si respondés en la primera hora que si tardás un día. <a class="ref" href="#fuentes">[3]</a></span></div><a class="calc-link" href="#calculadora" data-calc="aloja">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-llave/index.html">Probá NOA Llave</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de alojamiento e inmuebles y quiero consultar por NOA Llave." href="#contacto">Consultar</a></div>
+    </div>
+    <div class="p-mock">
+      <a class="mock-link laptop" href="noa-llave/index.html" aria-label="Abrir la demo de NOA Llave"><div class="screen"><video src="assets/video/llave.mp4" poster="assets/img/lap-llave.jpg" muted loop playsinline preload="none" aria-label="NOA Llave en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-llave/index.html#calendario" aria-label="Abrir NOA Llave en el celular"><img src="assets/img/mob-llave.jpg" alt="NOA Llave en el celular"></a>
+      <p class="p-note">Demo de un complejo de cabañas de ejemplo. Preguntá por el fin de semana en el WhatsApp simulado.</p>
+    </div>
+  </div>
+</section>
+<section class="product" id="noa-turno">
+  <div class="wrap">
+    <div class="p-text">
+      <p class="eyebrow">Servicios</p>
+      <h2 class="disp" style="margin-top:10px">NOA Turno<span class="sl">/</span></h2>
+      <p class="for">Talleres · peluquerías · estética · consultorios · estudios</p>
+      <ul class="benefits">
+        <li><b>Turnos sin atender el teléfono</b><span>El cliente pide turno por WhatsApp, elige el horario y queda agendado solo.</span></li>
+        <li><b>Menos ausencias</b><span>Recordatorio automático el día anterior, con confirmación del cliente.</span></li>
+        <li><b>Clientes que vuelven</b><span>Te avisa a quién le toca el service, el control o el retoque, y le escribe por vos.</span></li>
+      </ul>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>34 %</b><span>menos ausencias, en promedio, con recordatorios automáticos. <a class="ref" href="#fuentes">[11]</a></span></div><div><b>72,4 %</b><span>de los consumidores está más dispuesto a comprarle a una marca que atiende por mensajes. <a class="ref" href="#fuentes">[2]</a></span></div><div><b>23 %</b><span>de las empresas nunca respondió una consulta en el estudio de Harvard. <a class="ref" href="#fuentes">[4]</a></span></div><a class="calc-link" href="#calculadora" data-calc="servicios">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-turno/index.html">Probá NOA Turno</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de servicios y quiero consultar por NOA Turno." href="#contacto">Consultar</a></div>
+    </div>
+    <div class="p-mock">
+      <a class="mock-link laptop" href="noa-turno/index.html" aria-label="Abrir la demo de NOA Turno"><div class="screen"><video src="assets/video/turno.mp4" poster="assets/img/lap-turno.jpg" muted loop playsinline preload="none" aria-label="NOA Turno en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-turno/index.html#recordatorios" aria-label="Abrir NOA Turno en el celular"><img src="assets/img/mob-turno.jpg" alt="NOA Turno en el celular"></a>
+      <p class="p-note">Demo de un taller de ejemplo. Pedí un turno por el WhatsApp simulado.</p>
+    </div>
+  </div>
+</section>
+<section class="product flip" id="noa-planta">
+  <div class="wrap">
+    <div class="p-text">
+      <p class="eyebrow">Industria</p>
       <h2 class="disp" style="margin-top:10px">NOA Planta<span class="sl">/</span></h2>
       <p class="for">Plantas · frigoríficos · bodegas · contratistas</p>
       <ul class="benefits">
@@ -87,54 +265,53 @@
         <li><b>La ficha de cada equipo en un toque</b><span>Datos técnicos, horas de marcha, repuestos asociados e historial, desde el mapa de planta o el celular.</span></li>
         <li><b>Repuestos y preventivos al día</b><span>Stock de pañol con mínimos, solicitudes de compra y plan preventivo con vencimientos.</span></li>
       </ul>
-      <div class="ctas"><a class="btn btn-primary" href="noa-planta/index.html">Probá NOA Planta</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, quiero consultar por NOA Planta." href="#contacto">Consultar</a></div>
+      <div class="cuenta"><p class="ct">La cuenta<span class="sl">/</span></p><div><b>70–75 %</b><span>de las roturas se eliminan con mantenimiento predictivo. <a class="ref" href="#fuentes">[12]</a></span></div><div><b>35–45 %</b><span>menos tiempo de parada no programada. <a class="ref" href="#fuentes">[12]</a></span></div><div><b>25–30 %</b><span>menos costo de mantenimiento. <a class="ref" href="#fuentes">[12]</a></span></div><a class="calc-link" href="#calculadora" data-calc="industria">Calculá cuánto perdés en tu negocio →</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="noa-planta/index.html">Probá NOA Planta</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, tengo un negocio de industria y quiero consultar por NOA Planta." href="#contacto">Consultar</a></div>
     </div>
     <div class="p-mock">
-      <a class="mock-link laptop" href="noa-planta/index.html#vib" aria-label="Abrir vibraciones en la demo de NOA Planta"><div class="screen"><img src="assets/img/lap-planta-vib.jpg" alt="Tendencia de vibración de una bomba con su límite propio y diagnóstico"></div><div class="base"></div></a>
-      <a class="mobile" href="noa-planta/index.html#mapa" aria-label="Abrir el mapa de planta"><img src="assets/img/mob-planta.jpg" alt="Mapa de planta en el celular"></a>
-      <p class="p-note">Demo con planta de ejemplo y datos ficticios. Se usa igual que el sistema real.</p>
+      <a class="mock-link laptop" href="noa-planta/index.html" aria-label="Abrir la demo de NOA Planta"><div class="screen"><video src="assets/video/planta.mp4" poster="assets/img/lap-planta.jpg" muted loop playsinline preload="none" aria-label="NOA Planta en uso"></video></div><div class="base"></div></a>
+      <a class="mobile" href="noa-planta/index.html#mapa" aria-label="Abrir NOA Planta en el celular"><img src="assets/img/mob-planta.jpg" alt="NOA Planta en el celular"></a>
+      <p class="p-note">Demo con una planta de ejemplo y datos ficticios. Se usa igual que el sistema real.</p>
     </div>
   </div>
 </section>
 
-<section class="product flip" id="noa-stock">
+<section class="sec" id="paquetes" style="border-top:1px solid rgba(255,255,255,.06)">
   <div class="wrap">
-    <div class="p-text">
-      <p class="eyebrow">Comercios</p>
-      <h2 class="disp" style="margin-top:10px">NOA Stock<span class="sl">/</span></h2>
-      <p class="for">Ferreterías · almacenes · distribuidoras · corralones</p>
-      <ul class="benefits">
-        <li><b>Tu WhatsApp responde solo</b><span>Precios, stock y horarios al instante, también a las 23 h. Lo que no sabe, te lo deriva.</span></li>
-        <li><b>Cada venta descuenta el stock</b><span>Mostrador, WhatsApp o Instagram: todo queda registrado y te avisa qué reponer y a qué proveedor.</span></li>
-        <li><b>Sabés qué te deja plata</b><span>Clasificación ABC, márgenes y días de cobertura de cada producto para comprar mejor.</span></li>
-      </ul>
-      <div class="ctas"><a class="btn btn-primary" href="noa-stock/index.html">Probá NOA Stock</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, quiero consultar por NOA Stock." href="#contacto">Consultar</a></div>
+    <p class="eyebrow">Paquetes</p>
+    <h2 class="disp" style="margin-top:10px">Elegí cómo empezar<span class="sl">/</span></h2>
+    <p class="intro">Todos arrancan con un diagnóstico sin cargo. El precio final depende de tu negocio, y te lo pasamos por escrito antes de empezar: un monto de instalación y un mantenimiento mensual.</p>
+    <div class="pk-grid">
+      <article class="pk"><h3>Presencia</h3><p class="who">Para que te encuentren y te escriban.</p><p class="plazo">Entrega: 1 a 2 semanas</p><ul><li>Página web con tu dominio</li><li>Perfil de Empresa en Google y Maps</li><li>WhatsApp Business configurado</li><li>Instagram profesional configurado</li></ul>
+        <details class="spec"><summary>Ver todo lo que incluye</summary><ul><li><b>Web:</b> una página de hasta 6 secciones (inicio, productos o servicios, fotos, ubicación con mapa, horarios y contacto), pensada para el celular, con botón de WhatsApp y HTTPS. La alojamos nosotros.</li><li><b>Dominio .com.ar</b> registrado a nombre del negocio en NIC Argentina. El arancel anual de NIC lo paga el negocio.</li><li><b>Google:</b> alta o recupero del Perfil de Empresa, verificación, categoría, horarios, fotos y links a la web y al WhatsApp.</li><li><b>WhatsApp Business</b> (la app gratuita de Meta): perfil de empresa, catálogo de hasta 30 productos o servicios, mensaje de bienvenida, mensaje automático fuera de horario, hasta 10 respuestas rápidas y etiquetas para ordenar clientes.</li><li><b>Instagram:</b> cuenta profesional, nombre de usuario, foto de perfil, biografía con horarios y link, botón de contacto que abre WhatsApp, 3 historias destacadas armadas (quiénes somos, productos, cómo comprar) y vinculación con Meta Business. No incluye publicar contenido todos los meses: eso se cotiza aparte.</li><li><b>Mantenimiento mensual:</b> alojamiento de la web, hasta 2 cambios de contenido por mes y soporte por WhatsApp en días hábiles.</li></ul></details>
+        <a class="btn btn-ghost btn-sm" data-wa="Hola NOA Labs, quiero consultar por el paquete Presencia." href="#contacto">Consultar</a></article>
+      <article class="pk rec"><span class="tag">RECOMENDADO</span><h3>Sistema</h3><p class="who">La solución de tu rubro, adaptada a tu negocio.</p><p class="plazo">Entrega: 2 a 4 semanas desde el diagnóstico</p><ul><li>Todo lo de Presencia</li><li>El sistema NOA de tu rubro</li><li>WhatsApp automático conectado al sistema</li><li>Carga de tus datos y capacitación</li></ul>
+        <details class="spec"><summary>Ver todo lo que incluye</summary><ul><li><b>Sistema:</b> los módulos de la demo de tu rubro, adaptados a tus productos, servicios, precios, horarios y forma de cobrar.</li><li><b>Usuarios:</b> hasta 5 personas con usuario propio y permisos por rol.</li><li><b>WhatsApp automático:</b> conectado a la API oficial de Meta (WhatsApp Business Platform). Responde con la información de tu negocio (precios, stock, horarios, turnos, reservas) y te deriva lo que no sabe. Meta cobra por algunos mensajes. Ese costo lo paga el negocio y lo detallamos en el presupuesto.</li><li><b>Carga inicial:</b> pasamos al sistema tus productos, clientes o socios desde Excel, cuadernos o fotos de listas.</li><li><b>Capacitación:</b> 2 sesiones, presenciales en Salta y Jujuy o por videollamada, y un instructivo escrito.</li><li><b>Seguridad:</b> todo lo de la sección Datos seguros, con copias de seguridad diarias y exportación a Excel.</li><li><b>Mantenimiento mensual:</b> servidor y base de datos, copias de seguridad, actualizaciones, soporte por WhatsApp en días hábiles y una mejora chica por mes.</li></ul></details>
+        <a class="btn btn-primary btn-sm" data-wa="Hola NOA Labs, quiero consultar por el paquete Sistema." href="#contacto">Consultar</a></article>
+      <article class="pk"><h3>Integral</h3><p class="who">Para negocios que quieren todo conectado.</p><p class="plazo">Entrega: a definir en el diagnóstico</p><ul><li>Todo lo de Sistema</li><li>Facturación electrónica con ARCA</li><li>Cuentas y finanzas del negocio</li><li>Integraciones y varias sucursales</li></ul>
+        <details class="spec"><summary>Ver todo lo que incluye</summary><ul><li><b>Facturación electrónica:</b> emitís la factura desde el mismo sistema, conectado al web service de ARCA, sin cargar la venta dos veces. <a class='ref' href='#fuentes'>[16]</a></li><li><b>Cuentas y finanzas:</b> caja y bancos, gastos, cuentas a cobrar y a pagar, stock valorizado, resultado del mes y un estado patrimonial de gestión (activo, pasivo y patrimonio neto). Es información para decidir: los estados contables oficiales los firma tu contador.</li><li><b>Cobros:</b> links de pago y QR de Mercado Pago que se registran solos en el sistema.</li><li><b>Alojamientos:</b> sincronización de calendario con Booking y Airbnb, para que no se pisen las reservas.</li><li><b>Tableros:</b> indicadores a medida y un resumen diario por WhatsApp para el dueño.</li><li><b>Usuarios y sucursales:</b> hasta 15 usuarios y varias sucursales en un mismo sistema.</li><li><b>Soporte prioritario.</b> Los desarrollos a medida se cotizan aparte.</li></ul></details>
+        <a class="btn btn-ghost btn-sm" data-wa="Hola NOA Labs, quiero consultar por el paquete Integral." href="#contacto">Consultar</a></article>
     </div>
-    <div class="p-mock">
-      <a class="mock-link laptop" href="noa-stock/index.html" aria-label="Abrir la demo de NOA Stock"><div class="screen"><img src="assets/img/lap-stock.jpg" alt="Panel de NOA Stock con ventas del día, stock y simulador de WhatsApp"></div><div class="base"></div></a>
-      <a class="mobile" href="noa-stock/index.html#stock" aria-label="Abrir stock"><img src="assets/img/mob-stock.jpg" alt="NOA Stock en el celular"></a>
-      <p class="p-note">Demo de una ferretería de ejemplo. Escribile al WhatsApp simulado y mirá cómo cambia el stock.</p>
+    <div class="incl">
+      <div><h4>Instalación</h4><p>Pago único. Relevamos tu negocio, configuramos todo, cargamos tus datos y capacitamos a tu equipo.</p></div>
+      <div><h4>Datos seguros</h4><p>Conexión cifrada, usuarios con permisos y copias de seguridad diarias desde el primer día.</p></div>
+      <div><h4>Mantenimiento mensual</h4><p>Servidor y dominio, copias de seguridad, actualizaciones, soporte por WhatsApp y mejoras todos los meses. Sin permanencia.</p></div>
     </div>
   </div>
 </section>
 
-<section class="product" id="noa-agenda">
+<section class="sec" id="seguridad" style="border-top:1px solid rgba(255,255,255,.06)">
   <div class="wrap">
-    <div class="p-text">
-      <p class="eyebrow">Servicios</p>
-      <h2 class="disp" style="margin-top:10px">NOA Agenda<span class="sl">/</span></h2>
-      <p class="for">Talleres · consultorios · estudios · servicios técnicos</p>
-      <ul class="benefits">
-        <li><b>Turnos sin atender el teléfono</b><span>El cliente pide turno por WhatsApp, elige horario y queda agendado solo.</span></li>
-        <li><b>Menos ausencias</b><span>Recordatorio automático el día anterior, con confirmación del cliente.</span></li>
-        <li><b>Clientes que vuelven</b><span>Te avisa a quién le toca el service por kilómetros o por fecha y le escribe por vos.</span></li>
-      </ul>
-      <div class="ctas"><a class="btn btn-primary" href="noa-agenda/index.html">Probá NOA Agenda</a><a class="btn btn-ghost" data-wa="Hola NOA Labs, quiero consultar por NOA Agenda." href="#contacto">Consultar</a></div>
-    </div>
-    <div class="p-mock">
-      <a class="mock-link laptop" href="noa-agenda/index.html" aria-label="Abrir la demo de NOA Agenda"><div class="screen"><img src="assets/img/lap-agenda.jpg" alt="Agenda de un taller con turnos del día y simulador de WhatsApp"></div><div class="base"></div></a>
-      <a class="mobile" href="noa-agenda/index.html#recordatorios" aria-label="Abrir recordatorios"><img src="assets/img/mob-agenda.jpg" alt="NOA Agenda en el celular"></a>
-      <p class="p-note">Demo de un taller de ejemplo. Pedí un turno por el WhatsApp simulado.</p>
+    <p class="eyebrow">Ciberseguridad</p>
+    <h2 class="disp" style="margin-top:10px">Tus datos, seguros<span class="sl">/</span></h2>
+    <p class="intro">Tus ventas, tus clientes y tus números son lo más valioso que tiene tu negocio. Estas son las condiciones técnicas de cada sistema que instalamos, con qué herramienta se cumple cada una:</p>
+    <div class="sec-grid">
+      <div><i>01</i><b>Conexión cifrada</b><span>La web y el sistema funcionan solo por HTTPS. Todo lo que viaja entre tu celular y el servidor va cifrado con TLS. <a class="ref" href="#fuentes">[14]</a></span></div>
+      <div><i>02</i><b>Un usuario por persona, con permisos</b><span>Cada persona entra con su usuario y su rol: dueño, encargado o empleado. La base de datos le muestra a cada uno solo lo que le corresponde. Si alguien deja de trabajar con vos, le quitás el acceso en el momento.</span></div>
+      <div><i>03</i><b>Copias de seguridad diarias</b><span>La base de datos se respalda sola todos los días y se guardan los últimos 7 días. Si se rompe la compu o te roban el celular, no perdés nada. <a class="ref" href="#fuentes">[13]</a></span></div>
+      <div><i>04</i><b>Datos cifrados en la nube</b><span>Usamos Supabase (PostgreSQL) sobre servidores de Amazon Web Services. Los datos guardados se cifran con AES-256. No queda nada en una compu debajo del mostrador. <a class="ref" href="#fuentes">[14]</a></span></div>
+      <div><i>05</i><b>Tus datos son tuyos</b><span>Los exportás cuando quieras en planillas que abrís con Excel. Si dejás el servicio, te entregamos todo.</span></div>
+      <div><i>06</i><b>Ley 25.326 de datos personales</b><span>El sistema guarda el consentimiento de tus clientes para recibir mensajes. Además, te guiamos para inscribir tu base en el Registro Nacional de Bases de Datos Personales, un trámite que le corresponde al dueño del negocio. <a class="ref" href="#fuentes">[15]</a> Ver <a href="legales/privacidad.html" style="color:var(--sunset-soft)">política de privacidad</a>.</span></div>
     </div>
   </div>
 </section>
@@ -150,6 +327,23 @@
   </div>
 </section>
 
+<section class="sec" id="nosotros" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div class="wrap about">
+    <div>
+      <p class="eyebrow">Quiénes somos</p>
+      <h2 class="disp" style="margin-top:10px">Detrás de NOA Labs<span class="sl">/</span></h2>
+      <p>NOA Labs nace en Salta, desde la ingeniería. Venimos del mantenimiento de plantas industriales en la Puna, donde un equipo parado cuesta plata y los datos tienen que estar al día.</p>
+      <p>A eso le sumamos ciencia de datos y desarrollo de software. La misma forma de trabajar (medir, ordenar, automatizar) la llevamos a comercios, servicios y emprendimientos del norte.</p>
+    </div>
+    <div class="facts">
+      <div><b>Ingeniería</b><span>miramos tu negocio como un proceso</span></div>
+      <div><b>Datos</b><span>decisiones con números, no a ojo</span></div>
+      <div><b>Software</b><span>sistemas propios, no plantillas</span></div>
+      <div><b>Del norte</b><span>conocemos cómo se trabaja acá</span></div>
+    </div>
+  </div>
+</section>
+
 <div class="band" aria-hidden="true"><div><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span><span>Hecho en el NOA</span></div></div>
 
 <section class="sec" id="proceso">
@@ -157,8 +351,8 @@
     <div>
       <p class="eyebrow">Cómo trabajamos</p>
       <h2 class="disp" style="margin-top:10px">Ingeniería, no humo<span class="sl">/</span></h2>
-      <p class="intro">Venimos de la industria. Antes de programar, entendemos cómo funciona tu negocio y medimos dónde se pierde tiempo o plata. El diagnóstico es sin cargo.</p>
-      <p class="support"><b>Soporte presencial</b> en Salta y Jujuy. <b>Remoto</b> en Tucumán y el resto del país.</p>
+      <p class="intro">Primero conocemos tu negocio y vemos dónde perdés tiempo o plata. Después diseñamos la solución y te acompañamos todos los meses con soporte y mejoras. El diagnóstico es sin cargo.</p>
+      <p class="support"><b>Soporte presencial</b> en Salta y Jujuy. <b>Remoto</b> en Tucumán, Catamarca, Santiago del Estero y el resto del país.</p>
     </div>
     <ol class="verbs">
       <li><b>Relevamos<span class="sl">/</span></b><span>vamos a tu negocio y miramos cómo trabajás</span></li>
@@ -171,28 +365,87 @@
   </div>
 </section>
 
+<section class="sec" id="preguntas" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div class="wrap">
+    <p class="eyebrow">Preguntas frecuentes</p>
+    <h2 class="disp" style="margin-top:10px">Lo que nos preguntan<span class="sl">/</span></h2>
+    <div class="faq">
+      <details><summary>¿Necesito una computadora?</summary><p>No. Todo funciona desde el celular, una tablet o una compu, con tu usuario y contraseña.</p></details>
+      <details><summary>¿Tengo que dejar de usar lo que uso hoy?</summary><p>No. Pasamos al sistema lo que tenés en planillas de Excel o en cuadernos, y conectamos el WhatsApp y el Instagram que ya usás. Tu número no cambia.</p></details>
+      <details><summary>¿Cuánto tarda la instalación?</summary><p>Depende de cada negocio. Después del diagnóstico te damos una fecha concreta. Como referencia, la presencia digital lleva una o dos semanas, y una solución de rubro con los datos cargados, de dos a cuatro.</p></details>
+      <details><summary>¿Cuánto cuesta?</summary><p>Depende del tamaño del negocio y de lo que necesites. Después del diagnóstico gratis te pasamos un presupuesto cerrado por escrito, con un monto de instalación y un mantenimiento mensual. Sin sorpresas.</p></details>
+      <details><summary>¿El WhatsApp con inteligencia artificial contesta cualquier cosa?</summary><p>Contesta lo que tu negocio sabe: precios, stock, horarios, turnos, reservas, estado de un pedido. Lo que no sabe no lo inventa: te lo deriva para que respondas vos.</p></details>
+      <details><summary>¿Tengo que cargar las ventas dos veces, en el sistema y en ARCA?</summary><p>No. Con el paquete Integral, el sistema emite la factura electrónica conectado directo a ARCA: registrás la venta una vez y queda facturada. Para eso hace falta tu clave fiscal y un certificado digital de ARCA, y te ayudamos a tramitarlo.</p></details>
+      <details><summary>¿El sistema me arma el balance?</summary><p>Te arma un estado patrimonial de gestión con tu activo, tu pasivo y tu patrimonio neto, y el resultado de cada mes, para que sepas cómo está el negocio en cualquier momento. Los estados contables oficiales los prepara y firma un contador público. El sistema le entrega la información ordenada y le ahorra horas de trabajo.</p></details>
+      <details><summary>¿Y si hoy no facturo todo?</summary><p>El sistema registra todas las ventas, y así tiene que ser para que los números sirvan. No armamos cajas paralelas ni sistemas para ocultar ventas. Si querés formalizarte, trabajamos junto a tu contador para que puedas facturar desde el mismo sistema sin trabajo extra.</p></details>
+      <details><summary>¿Mis datos están seguros?</summary><p>Sí. Cada sistema tiene conexión cifrada, usuarios con permisos y copias de seguridad diarias. Los datos son tuyos y te los llevás cuando quieras. Lo contamos en detalle en <a href="#seguridad">Datos seguros</a>.</p></details>
+      <details><summary>¿Qué pasa si después no me sirve?</summary><p>El mantenimiento mensual no tiene permanencia: lo podés dar de baja cuando quieras, avisando con 30 días, y te entregamos todos tus datos en Excel. Ver <a href="legales/baja.html">baja del servicio</a>.</p></details>
+      <details><summary>¿Atienden fuera de Salta?</summary><p>Sí. Damos soporte presencial en Salta y Jujuy, y remoto en Tucumán, Catamarca, Santiago del Estero y el resto del país.</p></details>
+      <details><summary>¿Las demos son de verdad?</summary><p>Sí: son los sistemas funcionando, con datos de negocios de ejemplo. Podés tocar todo, cargar ventas, dar turnos o escribirle al WhatsApp simulado. Los cambios se borran al recargar la página.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="fuentes" style="border-top:1px solid rgba(255,255,255,.06);padding:60px 0">
+  <div class="wrap">
+    <p class="eyebrow">Fuentes</p>
+    <h2 class="disp" style="margin-top:10px;font-size:clamp(36px,4.5vw,60px)">De dónde salen los números<span class="sl">/</span></h2>
+    <p class="intro">No inventamos ninguna cifra. Cada dato de esta página tiene su fuente, para que la puedas revisar.</p>
+    <ol class="src">
+      <li><span>DataReportal, Digital 2027 Argentina (octubre 2026): el 93,5 % de los usuarios de internet de 16 años o más usó WhatsApp en el último mes.</span> <a href="https://datareportal.com/reports/digital-2027-argentina" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Kantar para Meta, State of Business Messaging (más de 11.000 consumidores en 22 mercados, Argentina incluida), citado por revista Mercado en noviembre de 2026: el 72,4 % tiene mayor predisposición a comprarle a una marca que ofrece mensajería.</span> <a href="https://mercado.com.ar/ruta-digital/responder-rapido-por-mensajeria-puede-aumentar-hasta-60-las-reservas-en-gastronomia" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Oldroyd, McElheran y Elkington, “The Short Life of Online Sales Leads”, Harvard Business Review, marzo 2011. Análisis de 1,25 millones de consultas: responder en la primera hora da casi 7 veces más chances que una hora después, y más de 60 veces más que tardar 24 horas.</span> <a href="https://hbr.org/2011/03/the-short-life-of-online-sales-leads" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Mismo artículo. Auditoría de 2.241 empresas: el 37 % respondió en una hora, el 24 % tardó más de un día y el 23 % nunca respondió.</span> <a href="https://hbr.org/2011/03/the-short-life-of-online-sales-leads" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Gruen, Corsten y Bharadwaj, “Retail Out-of-Stocks: A Worldwide Examination of Extent, Causes and Consumer Responses”, GMA/FMI/CIES, 2002. Faltantes promedio del 8,3 %; el 31 % de los consumidores compra en otro negocio; se pierde cerca del 4 % de las ventas.</span> <a href="https://fmi.org/newsroom/news-archive/view/2002/10/14/new-industry-study-explores-root-causes-of-global-out-of-stock-dilemma" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Think with Google, 2016: el 76 % de quienes buscan algo cerca en el celular visita un negocio relacionado dentro del día, y el 28 % de esas búsquedas termina en una compra.</span> <a href="https://www.thinkwithgoogle.com/data/mobile-near-me-searches/" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>iProUP, septiembre de 2022: las apps de delivery cobran entre el 18 y el 33 % de comisión según el tamaño del restaurante (Ariel Amoroso, ex presidente de la Asociación de Hoteles, Restaurantes, Confiterías y Cafés). En octubre de 2026, iProUP habla de comisiones cercanas al 30 %.</span> <a href="https://www.iproup.com/economia-digital/34259-pedidosya-rappi-cuanto-cuesta-un-delivery" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Mews, “¿Qué son las comisiones de Booking?”: van del 10 al 25 %, en general cerca del 15 % por reserva. El porcentaje exacto depende del contrato de cada alojamiento.</span> <a href="https://www.mews.com/es/blog/comision-booking" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Health & Fitness Association, 2025 Fitness Industry Benchmarking Report (175 empresas, más de 17.000 gimnasios en 27 países): retención anual promedio del 66,4 %. Les Mills, noviembre de 2024: según cifras de la industria, cerca de la mitad de los socios nuevos se va en los primeros 6 meses.</span> <a href="https://www.healthandfitness.org/2025-fitness-industry-benchmarking-report/" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>IHRSA, citado por GoCardless: los socios que entrenan en grupo tienen un 50 % menos de probabilidad de darse de baja.</span> <a href="https://gocardless.com/en-au/guides/posts/member-retention-playbook" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Hasvold y Wootton, “Use of telephone and SMS reminders to improve attendance at hospital appointments: a systematic review”, Journal of Telemedicine and Telecare, 2011: los recordatorios bajaron las ausencias un 34 % en promedio.</span> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3188816/" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>U.S. Department of Energy / Pacific Northwest National Laboratory, Operations &amp; Maintenance Best Practices Guide, Release 2.0 (2004), capítulo 5: según encuestas independientes citadas en la guía, un programa de mantenimiento predictivo reduce el costo de mantenimiento entre un 25 y un 30 %, elimina entre el 70 y el 75 % de las roturas y baja las paradas entre un 35 y un 45 %.</span> <a href="https://www.pnnl.gov/main/publications/external/technical_reports/pnnl-14788.pdf" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Supabase, documentación de copias de seguridad: los proyectos en plan Pro se respaldan automáticamente todos los días y se pueden recuperar los últimos 7 días.</span> <a href="https://supabase.com/docs/guides/platform/backups" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Supabase, página de seguridad: todos los datos se cifran en reposo con AES-256 y en tránsito con TLS.</span> <a href="https://supabase.com/security" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>Agencia de Acceso a la Información Pública: las bases de datos con información de personas deben estar inscriptas en el Registro Nacional de Bases de Datos Personales; el trámite se hace por Trámites a Distancia con clave fiscal nivel 2 o superior.</span> <a href="https://www.argentina.gob.ar/aaip/datospersonales/tramites" target="_blank" rel="noopener">Ver fuente</a></li>
+      <li><span>ARCA, Webservices de factura electrónica: los sistemas propios pueden emitir comprobantes A, B, C y M con el web service wsfev1, usando un certificado digital emitido por ARCA.</span> <a href="https://www.arca.gob.ar/ws/documentacion/ws-factura-electronica.asp" target="_blank" rel="noopener">Ver fuente</a></li>
+    </ol>
+  </div>
+</section>
+
 <section class="cta" id="contacto">
   <img class="bg" src="assets/img/purmamarca.jpg" alt="" aria-hidden="true">
-  <div class="wrap">
-    <p class="eyebrow">Contacto</p>
-    <h2 class="disp" style="margin-top:10px">Hablanos<span class="sl">/</span></h2>
-    <p>Contanos cómo llevás tu negocio hoy. Te decimos, sin cargo, dónde podés ganar tiempo y plata.</p>
-    <div class="ctas"><a class="btn btn-primary" data-wa href="#contacto">Escribinos por WhatsApp</a><a class="btn btn-ghost" href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">Instagram @noalabsarg</a></div>
-    <div class="contact-list"><span>WHATSAPP <a data-wa href="#contacto">+54 9 387 612-4879</a></span><span>INSTAGRAM <a href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">@noalabsarg</a></span><span>SALTA, ARGENTINA</span></div>
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Contacto</p>
+      <h2 class="disp" style="margin-top:10px">Hablanos<span class="sl">/</span></h2>
+      <p>Contanos cómo llevás tu negocio hoy. Te decimos, sin cargo, dónde podés ganar tiempo y plata.</p>
+      <div class="ctas"><a class="btn btn-primary" data-wa href="#contacto">Escribinos por WhatsApp</a><a class="btn btn-ghost" href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">Instagram @noalabsarg</a></div>
+      <div class="contact-list"><span>WHATSAPP <a data-wa href="#contacto">+54 9 387 612-4879</a></span><span>INSTAGRAM <a href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">@noalabsarg</a></span><span>SALTA, ARGENTINA</span></div>
+    </div>
+    <form class="lead-form" id="lead" novalidate>
+      <h3>Pedí tu diagnóstico gratis</h3>
+      <div class="two"><label>Tu nombre<input id="l-n" autocomplete="name"></label><label>Tu negocio<input id="l-b" autocomplete="organization" placeholder="Nombre del negocio"></label></div>
+      <div class="two"><label>Rubro<select id="l-r"><option value="">Elegí</option><option>Comercios</option><option>Gastronomía</option><option>Deporte</option><option>Alojamiento e inmuebles</option><option>Servicios</option><option>Industria</option><option>Otro rubro</option></select></label><label>Ciudad<select id="l-c"><option>Salta</option><option>Orán</option><option>Jujuy</option><option>Tucumán</option><option>Catamarca</option><option>Santiago del Estero</option><option>Otra</option></select></label></div>
+      <label>¿Qué te gustaría resolver?<textarea id="l-m" placeholder="Por ejemplo: no doy abasto con los mensajes de WhatsApp, no sé cuánto stock tengo…"></textarea></label>
+      <p class="err" id="l-err" aria-live="polite"></p>
+      <button class="btn btn-primary" type="submit">Enviar por WhatsApp</button>
+      <small>Se abre tu WhatsApp con el mensaje listo para enviar. Esta página no guarda tus datos.</small>
+    </form>
   </div>
 </section>
 </main>
 
 <footer class="foot">
   <div class="wrap fcols">
-    <div><a class="brand" href="index.html"><img src="assets/img/noa-labs-icono.png" alt=""><span>NOA LABS<span class="sl">/</span></span></a><p style="margin-top:12px;max-width:28ch">Productos propios y software a medida para negocios del NOA.</p></div>
-    <div><h4>Productos</h4><a href="noa-planta/index.html">NOA Planta</a><a href="noa-stock/index.html">NOA Stock</a><a href="noa-agenda/index.html">NOA Agenda</a></div>
-    <div><h4>Servicios</h4><a href="#servicios">Presencia digital</a><a href="#servicios">Transformación digital</a><a href="#proceso">Cómo trabajamos</a></div>
+    <div><a class="brand" href="index.html"><img src="assets/img/noa-labs-icono.png" alt=""><span>NOA LABS<span class="sl">/</span></span></a><p style="margin-top:12px;max-width:28ch">Soluciones digitales por rubro para negocios del NOA.</p></div>
+    <div><h4>Soluciones</h4><a href="noa-mostrador/index.html">NOA Mostrador</a><a href="noa-mesa/index.html">NOA Mesa</a><a href="noa-club/index.html">NOA Club</a><a href="noa-llave/index.html">NOA Llave</a><a href="noa-turno/index.html">NOA Turno</a><a href="noa-planta/index.html">NOA Planta</a></div>
+    <div><h4>NOA Labs</h4><a href="#calculadora">Calculadora</a><a href="#por-que">Por qué NOA Labs</a><a href="#paquetes">Paquetes</a><a href="#seguridad">Datos seguros</a><a href="#nosotros">Quiénes somos</a><a href="#proceso">Cómo trabajamos</a><a href="#preguntas">Preguntas frecuentes</a><a href="#fuentes">Fuentes</a></div>
     <div><h4>Legales</h4><a href="legales/terminos.html">Términos y condiciones</a><a href="legales/privacidad.html">Política de privacidad</a><a href="legales/baja.html">Baja del servicio</a></div>
-    <div><h4>Contacto</h4><a data-wa href="#contacto">WhatsApp +54 9 387 612-4879</a><a href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">Instagram @noalabsarg</a><span>Salta · Jujuy · Tucumán</span></div>
+    <div><h4>Contacto</h4><a data-wa href="#contacto">WhatsApp +54 9 387 612-4879</a><a href="https://www.instagram.com/noalabsarg/" target="_blank" rel="noopener">Instagram @noalabsarg</a><span>Salta · Jujuy · Tucumán · Catamarca · Santiago del Estero</span></div>
   </div>
   <div class="wrap fbottom"><span>© <span data-year>2026</span> NOA Labs · Salta, Argentina</span><span class="mono">Las demos usan datos ficticios.</span></div>
 </footer>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/calc.js"></script>
 </body>
 </html>

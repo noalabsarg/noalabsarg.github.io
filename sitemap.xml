@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://noalabs.com.ar/</loc></url>
-  <url><loc>https://noalabs.com.ar/noa-planta/</loc></url>
-  <url><loc>https://noalabs.com.ar/noa-stock/</loc></url>
-  <url><loc>https://noalabs.com.ar/noa-agenda/</loc></url>
-  <url><loc>https://noalabs.com.ar/legales/terminos.html</loc></url>
-  <url><loc>https://noalabs.com.ar/legales/privacidad.html</loc></url>
-  <url><loc>https://noalabs.com.ar/legales/baja.html</loc></url>
+  <url><loc>https://noalabsarg.github.io/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-mostrador/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-mesa/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-club/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-llave/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-turno/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-planta/</loc></url>
+  <url><loc>https://noalabsarg.github.io/legales/terminos.html</loc></url>
+  <url><loc>https://noalabsarg.github.io/legales/privacidad.html</loc></url>
+  <url><loc>https://noalabsarg.github.io/legales/baja.html</loc></url>
 </urlset>
