@@ -106,17 +106,31 @@
 (function () {
   const R = DEMO_R, api = NOA_DEMO[R];
   const META = {
-    belleza: {t: "Salón de belleza", msg: "Hola! Quería sacar turno para uñas 💅", g: ["Tocá el link del WhatsApp", "Sacá un turno como si fueras clienta", "Mirá cómo aparece en la agenda de la profesional"]},
-    taller: {t: "Taller mecánico", msg: "Buenas, necesito hacerle el service al auto", g: ["Tocá el link del WhatsApp", "Pedí turno en el taller o a domicilio", "Mirá el turno con el auto y la patente en el panel"]},
-    gimnasio: {t: "Gimnasio", msg: "Hola! Hay lugar en funcional mañana?", g: ["Tocá el link del WhatsApp", "Reservá una clase (probá con una socia con la cuota vencida)", "Mirá cómo baja el cupo y aparece en la lista"]},
-    mates: {t: "Matería", msg: "Hola! Tienen mates imperiales?", g: ["Tocá el link del WhatsApp", "Reservá productos para retirar o con envío", "Mirá cómo baja el stock y entra el pedido"]},
-    ferreteria: {t: "Ferretería", msg: "Hola, tenés tomacorrientes dobles?", g: ["Tocá el link del WhatsApp", "Buscá y armá un pedido", "Mirá el pedido y el stock actualizados en el panel"]},
-    cafe: {t: "Café", msg: "Hola! Puedo encargar medialunas para las 9?", g: ["Tocá el link del WhatsApp", "Pedí para llevar o reservá una mesa", "Mirá el pedido y la reserva en el panel"]},
+    belleza: {grupo: "Servicios", t: "Salón de belleza", i: "💅", c: "Sacá tu turno online", msg: "Hola! Quería sacar turno para uñas 💅", g: ["Tocá el link del WhatsApp", "Sacá un turno como si fueras clienta", "Mirá cómo aparece en la agenda de la profesional"]},
+    taller: {grupo: "Servicios", t: "Taller mecánico", i: "🔧", c: "Pedí turno en el taller o a domicilio", msg: "Buenas, necesito hacerle el service al auto", g: ["Tocá el link del WhatsApp", "Pedí turno en el taller o a domicilio", "Mirá el turno con el auto y la patente en el panel"]},
+    consultorio: {grupo: "Servicios", t: "Consultorio", i: "🩺", c: "Sacá turno con tu profesional", msg: "Hola, ¿tienen turno con la odontóloga esta semana?", g: ["Tocá el link del WhatsApp", "Elegí profesional, día y hora", "Mirá la agenda de cada profesional en el panel"]},
+    estudio: {grupo: "Servicios", t: "Estudio contable", i: "📊", c: "Agendá tu reunión", msg: "Hola! Necesito una consulta por el monotributo", g: ["Tocá el link del WhatsApp", "Agendá una reunión en el estudio o por videollamada", "Mirá la reunión con el CUIT y el tema en el panel"]},
+    gimnasio: {grupo: "Deporte", t: "Gimnasio", i: "💪", c: "Reservá tu clase", msg: "Hola! Hay lugar en funcional mañana?", g: ["Tocá el link del WhatsApp", "Reservá una clase (probá con una socia con la cuota vencida)", "Mirá cómo baja el cupo y aparece en la lista"]},
+    canchas: {grupo: "Deporte", t: "Canchas de pádel y fútbol", i: "🎾", c: "Reservá tu cancha", msg: "Hola! Tienen cancha de pádel hoy a la noche?", g: ["Tocá el link del WhatsApp", "Reservá una cancha y un horario", "Mirá cada cancha ocupada en el panel"]},
+    danza: {grupo: "Deporte", t: "Academia de danza", i: "💃", c: "Reservá tu lugar en la clase", msg: "Hola! Quiero ir a folklore esta semana", g: ["Tocá el link del WhatsApp", "Reservá una clase (probá con una alumna con la cuota vencida)", "Mirá los anotados de cada clase en el panel"]},
+    mates: {grupo: "Comercios", t: "Matería", i: "🧉", c: "Catálogo con stock y precios", msg: "Hola! Tienen mates imperiales?", g: ["Tocá el link del WhatsApp", "Reservá productos para retirar o con envío", "Mirá cómo baja el stock y entra el pedido"]},
+    ferreteria: {grupo: "Comercios", t: "Ferretería", i: "🔩", c: "Catálogo con stock y precios", msg: "Hola, tenés tomacorrientes dobles?", g: ["Tocá el link del WhatsApp", "Buscá y armá un pedido", "Mirá el pedido y el stock actualizados en el panel"]},
+    almacen: {grupo: "Comercios", t: "Almacén y despensa", i: "🛒", c: "Armá tu pedido", msg: "Hola! Me mandás leche, pan y huevos?", g: ["Tocá el link del WhatsApp", "Armá el pedido con envío", "Mirá el pedido y el stock en el panel"]},
+    ropa: {grupo: "Comercios", t: "Tienda de ropa", i: "👕", c: "Talles y stock reales", msg: "Hola! Tenés la remera blanca en talle M?", g: ["Tocá el link del WhatsApp", "Reservá una prenda en tu talle", "Mirá cómo se aparta del stock en el panel"]},
+    cafe: {grupo: "Gastronomía", t: "Café", i: "☕", c: "Pedí para llevar o reservá mesa", msg: "Hola! Puedo encargar medialunas para las 9?", g: ["Tocá el link del WhatsApp", "Pedí para llevar o reservá una mesa", "Mirá el pedido y la reserva en el panel"]},
+    restaurante: {grupo: "Gastronomía", t: "Restaurante y bar", i: "🍷", c: "Reservá mesa o pedí para llevar", msg: "Hola! Tienen mesa para 4 el sábado a la noche?", g: ["Tocá el link del WhatsApp", "Reservá una mesa o pedí empanadas para llevar", "Mirá las mesas ocupadas y los pedidos en el panel"]},
+    rotiseria: {grupo: "Gastronomía", t: "Rotisería", i: "🍗", c: "Encargá y retirá sin esperar", msg: "Hola! Me guardás un pollo para las 13?", g: ["Tocá el link del WhatsApp", "Encargá para una hora", "Mirá los pedidos por horario en el panel"]},
+    heladeria: {grupo: "Gastronomía", t: "Heladería", i: "🍦", c: "Pedí tu helado", msg: "Hola! Hacen envíos de helado?", g: ["Tocá el link del WhatsApp", "Pedí un kilo con envío", "Mirá el pedido con los gustos en el panel"]},
+    cabanas: {grupo: "Alojamiento", t: "Cabañas y alquiler temporario", i: "🏡", c: "Disponibilidad y precio de tus fechas", msg: "Hola! Tienen cabaña para 4 el finde largo?", g: ["Tocá el link del WhatsApp", "Elegí fechas y una cabaña libre", "Mirá la reserva esperando la seña en el panel"]},
+    inmobiliaria: {grupo: "Alojamiento", t: "Inmobiliaria", i: "🏠", c: "Propiedades y visitas", msg: "Hola! Sigue disponible el depto del centro?", g: ["Tocá el link del WhatsApp", "Elegí una propiedad y coordiná la visita", "Mirá las visitas del día en el panel"]},
   };
+  if (!META[R]) location.search = "?r=belleza";
   const m = META[R];
   document.title = `Demo ${m.t} · NOA Labs`;
   const sel = document.getElementById("otro");
-  sel.innerHTML = Object.entries(META).map(([k, v]) => `<option value="${k}" ${k === R ? "selected" : ""}>${v.t}</option>`).join("");
+  const grupos = {};
+  Object.entries(META).forEach(([k, v]) => (grupos[v.grupo] = grupos[v.grupo] || []).push([k, v]));
+  sel.innerHTML = Object.entries(grupos).map(([gn, l]) => `<optgroup label="${gn}">${l.map(([k, v]) => `<option value="${k}" ${k === R ? "selected" : ""}>${v.t}</option>`).join("")}</optgroup>`).join("");
   sel.onchange = () => location.search = "?r=" + sel.value;
   document.getElementById("guide").innerHTML = m.g.map((t, i) => `<span><i>${i + 1}</i>${i === 2 ? "<b>" + t + "</b>" : t}</span>`).join("");
   const panel = document.getElementById("panel");
@@ -134,7 +148,7 @@
     add(m.msg, "out", 200);
     setTimeout(() => { const t = document.createElement("div"); t.className = "typing"; t.textContent = "escribiendo…"; t.id = "typ"; msgs.append(t); }, 700);
     setTimeout(() => { const t = document.getElementById("typ"); if (t) t.remove(); }, 1500);
-    add(`<span class="auto">Mensaje automático</span>${S.bienvenida}<br><a class="lk" data-open>${S.link}</a><a class="card" data-open><i>${{belleza: "💅", taller: "🔧", gimnasio: "💪", mates: "🧉", ferreteria: "🔩", cafe: "☕"}[R]}</i><b>${S.nombre}</b><span>${R === "gimnasio" ? "Reservá tu clase" : ["mates", "ferreteria"].includes(R) ? "Catálogo con stock y precios" : R === "cafe" ? "Pedí para llevar o reservá mesa" : "Sacá tu turno online"}</span></a>`, "in", 1550);
+    add(`<span class="auto">Mensaje automático</span>${S.bienvenida}<br><a class="lk" data-open>${S.link}</a><a class="card" data-open><i>${m.i}</i><b>${S.nombre}</b><span>${m.c}</span></a>`, "in", 1550);
     setTimeout(() => {
       msgs.querySelectorAll("[data-open]").forEach(a => a.onclick = abrir);
       const b = document.createElement("button"); b.className = "tap"; b.textContent = "👆 Tocá el link"; b.onclick = abrir; screen.append(b);

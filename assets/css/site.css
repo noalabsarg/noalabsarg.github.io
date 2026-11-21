@@ -176,7 +176,9 @@ a{color:inherit}
 .rub .st{font:600 11px var(--mono);letter-spacing:1.4px;color:var(--sunset-soft)}
 .rub h3{font-family:var(--display);font-weight:400;font-size:38px;text-transform:uppercase;line-height:1}
 .rub p{color:var(--dust);font-size:15px}
-.rub .links{margin-top:auto;padding-top:10px;display:flex;gap:16px;font-weight:600;font-size:15px}
+.rub .links{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;font-weight:600;font-size:15px}
+.rub .links .lb{color:var(--muted,#8A94A8);font-weight:500;font-size:13px;width:100%}
+.rub .links a{white-space:nowrap}
 .rub .links a{text-decoration:none;color:var(--sunset-soft)}
 .rub .links a:hover{color:var(--salt)}
 .rub.custom{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;gap:24px;background:transparent;border:1px dashed rgba(239,235,228,.3)}

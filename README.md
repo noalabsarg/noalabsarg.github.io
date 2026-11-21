@@ -1,30 +1,29 @@
 # NOA Labs · sitio web
 
-Sitio estático de NOA Labs (Salta, Argentina): página principal, seis rubros con sus demos y páginas legales. No necesita servidor ni base de datos: es HTML, CSS y JavaScript puro.
+Sitio estático de NOA Labs (Salta, Argentina): página principal, seis rubros con 18 demos y páginas legales. No necesita servidor ni base de datos: es HTML, CSS y JavaScript puro.
 
-Las demos principales son **el sistema real** (los mismos archivos que usa el servidor) corriendo con datos de ejemplo en el navegador: a la izquierda el celular del cliente, que arranca en el WhatsApp con el link, y a la derecha el panel del dueño, que se actualiza al instante.
+Las demos son **el sistema real** (los mismos archivos que usa el servidor) corriendo con datos de ejemplo en el navegador: a la izquierda el celular del cliente, que arranca en el WhatsApp con el link, y a la derecha el panel del dueño, que se actualiza al instante. Los Excel se arman en el navegador con `app/noa-xlsx.js`, sin librerías de afuera.
 
 ## Estructura
 
 ```
-index.html                Página principal
-demo/index.html?r=belleza     Salón de belleza: turnos por profesional
-demo/index.html?r=taller      Taller: turnos en el taller o a domicilio, con datos del auto
-demo/index.html?r=gimnasio    Gimnasio: clases con cupo y socios con cuota
-demo/index.html?r=mates       Matería: catálogo con stock, retiro o envío
-demo/index.html?r=ferreteria  Ferretería: catálogo con buscador y stock
-demo/index.html?r=cafe        Café: pedidos para llevar y reservas de mesa
-app/                      Página del cliente, panel del dueño y las reglas de la demo (noa-demo-backend.js)
-noa-llave/index.html      Alojamiento e inmuebles (demo anterior, con WhatsApp simulado)
-noa-estudio/index.html    Estudios contables y jurídicos (demo anterior, con WhatsApp simulado)
-noa-planta/index.html     Industria: dashboard, mapa, equipos, vibraciones, repuestos, OT
-legales/                  Términos, privacidad y baja del servicio
-404.html                  Página de error
-assets/                   Estilos, scripts del sitio, fotos y videos de las demos
-robots.txt, sitemap.xml   SEO básico
+index.html                    Página principal
+demo/index.html?r=<rubro>     Demo de cada rubro (hay un selector arriba para cambiar):
+   Servicios:    belleza, taller, consultorio, estudio
+   Deporte:      gimnasio, canchas, danza
+   Comercios:    mates, ferreteria, almacen, ropa
+   Gastronomía:  cafe, restaurante, rotiseria, heladeria
+   Alojamiento:  cabanas, inmobiliaria
+app/                          Página del cliente, panel del dueño, Excel y las reglas de la demo (noa-demo-backend.js)
+noa-planta/index.html         Industria: dashboard, mapa, equipos, vibraciones, repuestos, OT
+legales/                      Términos, privacidad y baja del servicio
+404.html                      Página de error
+assets/                       Estilos, scripts del sitio, fotos y videos de las demos
+robots.txt, sitemap.xml       SEO básico
+.nojekyll                     Para que GitHub Pages publique todo tal cual
 ```
 
-Si ya tenías subida la versión anterior en GitHub, borrá las carpetas `noa-mostrador`, `noa-mesa`, `noa-club` y `noa-turno` (ya no se usan).
+Si ya tenías subida una versión anterior en GitHub, borrá las carpetas `noa-llave`, `noa-estudio`, `noa-mostrador`, `noa-mesa`, `noa-club` y `noa-turno`, y los archivos `assets/js/noa-llave.js` y `assets/js/noa-estudio.js` (ya no se usan).
 
 ## Cambiar el número de WhatsApp
 
