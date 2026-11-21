@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://noalabsarg.github.io/</loc></url>
-  <url><loc>https://noalabsarg.github.io/noa-mostrador/</loc></url>
-  <url><loc>https://noalabsarg.github.io/noa-mesa/</loc></url>
-  <url><loc>https://noalabsarg.github.io/noa-club/</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=belleza</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=cafe</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=mates</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=gimnasio</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=ferreteria</loc></url>
+  <url><loc>https://noalabsarg.github.io/demo/?r=taller</loc></url>
   <url><loc>https://noalabsarg.github.io/noa-llave/</loc></url>
-  <url><loc>https://noalabsarg.github.io/noa-turno/</loc></url>
+  <url><loc>https://noalabsarg.github.io/noa-estudio/</loc></url>
   <url><loc>https://noalabsarg.github.io/noa-planta/</loc></url>
   <url><loc>https://noalabsarg.github.io/legales/terminos.html</loc></url>
   <url><loc>https://noalabsarg.github.io/legales/privacidad.html</loc></url>

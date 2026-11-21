@@ -1,25 +1,30 @@
 # NOA Labs · sitio web
 
-Sitio estático de NOA Labs (Salta, Argentina): página principal, seis demos funcionales, una por rubro y páginas legales. No necesita servidor ni base de datos: es HTML, CSS y JavaScript puro, así que se puede subir a cualquier hosting estático.
+Sitio estático de NOA Labs (Salta, Argentina): página principal, seis rubros con sus demos y páginas legales. No necesita servidor ni base de datos: es HTML, CSS y JavaScript puro.
+
+Las demos principales son **el sistema real** (los mismos archivos que usa el servidor) corriendo con datos de ejemplo en el navegador: a la izquierda el celular del cliente, que arranca en el WhatsApp con el link, y a la derecha el panel del dueño, que se actualiza al instante.
 
 ## Estructura
 
 ```
-index.html              Página principal
-noa-mostrador/index.html  Comercios: stock, ventas, clientes, alertas, reportes + WhatsApp simulado
-noa-mesa/index.html       Gastronomía: salón, cocina, reservas, carta, caja + WhatsApp simulado
-noa-club/index.html       Deporte: ingreso en vivo, socios, clases con cupo, cobros, finanzas + WhatsApp simulado
-noa-llave/index.html      Alojamiento e inmuebles: calendario, reservas, propiedades, alquileres + WhatsApp simulado
-noa-turno/index.html      Servicios: agenda, clientes, recordatorios, vehículos, reportes + WhatsApp simulado
+index.html                Página principal
+demo/index.html?r=belleza     Salón de belleza: turnos por profesional
+demo/index.html?r=taller      Taller: turnos en el taller o a domicilio, con datos del auto
+demo/index.html?r=gimnasio    Gimnasio: clases con cupo y socios con cuota
+demo/index.html?r=mates       Matería: catálogo con stock, retiro o envío
+demo/index.html?r=ferreteria  Ferretería: catálogo con buscador y stock
+demo/index.html?r=cafe        Café: pedidos para llevar y reservas de mesa
+app/                      Página del cliente, panel del dueño y las reglas de la demo (noa-demo-backend.js)
+noa-llave/index.html      Alojamiento e inmuebles (demo anterior, con WhatsApp simulado)
+noa-estudio/index.html    Estudios contables y jurídicos (demo anterior, con WhatsApp simulado)
 noa-planta/index.html     Industria: dashboard, mapa, equipos, vibraciones, repuestos, OT
 legales/                  Términos, privacidad y baja del servicio
 404.html                  Página de error
-assets/css/               site.css (sitio) y app.css (demos)
-assets/js/                site.js, app-common.js y un archivo por demo
-assets/img/               Fotos de la Puna, logo, íconos y capturas de las demos
-assets/video/             Videos cortos de cada demo (se ven dentro de las laptops de la home)
-robots.txt, sitemap.xml SEO básico
+assets/                   Estilos, scripts del sitio, fotos y videos de las demos
+robots.txt, sitemap.xml   SEO básico
 ```
+
+Si ya tenías subida la versión anterior en GitHub, borrá las carpetas `noa-mostrador`, `noa-mesa`, `noa-club` y `noa-turno` (ya no se usan).
 
 ## Cambiar el número de WhatsApp
 

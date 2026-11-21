@@ -63,6 +63,18 @@
         return {lost, rec:lost * .34,
           how:`${f.tur} turnos × 4,3 semanas × ${f.aus} % de ausencias × ${ars(f.pre)} = ${ars(lost)} por mes en horarios vacíos. Los recordatorios automáticos bajan las ausencias un 34 % en promedio [11].`}; }
     },
+    profesionales: {
+      label:"Profesionales",
+      fields:[
+        {id:"cli", l:"Clientes que atendés por mes", v:40},
+        {id:"hs", l:"Horas por mes que perdés por cliente pidiendo documentación y respondiendo lo mismo", v:1},
+        {id:"vh", l:"¿Cuánto vale tu hora de trabajo? ($)", v:25000},
+        {id:"aut", l:"¿Qué parte de ese trabajo se podría automatizar? (%)", v:50}
+      ],
+      calc:f => { const lost = f.cli * f.hs * f.vh;
+        return {lost, rec:lost * f.aut / 100,
+          how:`${f.cli} clientes × ${String(f.hs).replace(".", ",")} h × ${ars(f.vh)} = ${ars(lost)} por mes en horas que no facturás. En una encuesta a 150 contadores de EE.UU., el 69 % dijo que pierde demasiado tiempo juntando documentación de clientes [16]. Lo que recuperás depende de la parte que se automatiza: ese porcentaje lo ponés vos.`}; }
+    },
     industria: {
       label:"Industria",
       fields:[

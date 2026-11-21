@@ -1,0 +1,71 @@
+/* Conexión de las páginas con el sistema.
+   - En la demo (?demo=rubro) usa el backend del navegador (noa-demo-backend.js).
+   - En producción llama al servidor Python por /api/... */
+window.NOA = (function () {
+  "use strict";
+  const q = new URLSearchParams(location.search);
+  const demo = q.get("demo");
+  const partes = location.pathname.split("/").filter(Boolean);
+  const clave = partes[0] === "p" ? partes[1] : null;
+  let slug = partes[0] === "r" ? partes[1] : null;
+  const codigoUrl = partes[0] === "c" ? partes[1] : q.get("c");
+
+  let back = null;
+  if (demo) {
+    try { back = window.parent && window.parent !== window && window.parent.NOA_DEMO && window.parent.NOA_DEMO[demo]; } catch (e) { back = null; }
+    if (!back && window.NOA_DEMO_CREAR) back = window.NOA_DEMO_CREAR(demo);
+  }
+
+  const qs = o => { const u = new URLSearchParams(); Object.entries(o || {}).forEach(([k, v]) => { if (v !== undefined && v !== null && v !== "") u.set(k, v); }); const s = u.toString(); return s ? "?" + s : ""; };
+  async function http(metodo, url, cuerpo) {
+    const r = await fetch(url, {method: metodo, headers: cuerpo ? {"Content-Type": "application/json"} : {}, body: cuerpo ? JSON.stringify(cuerpo) : undefined});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { const e = new Error(typeof j.detail === "string" ? j.detail : (j.detail && j.detail.msg) || "Algo falló. Probá de nuevo."); e.tipo = j.detail && j.detail.tipo; throw e; }
+    return j;
+  }
+  const P = `/api/panel/${clave}`;
+  const A0 = () => `/api/${slug}`;
+  const rutas = {
+    info: () => http("GET", `${A0()}/info`),
+    dias: p => http("GET", `${A0()}/dias${qs(p)}`),
+    horas: p => http("GET", `${A0()}/horas${qs(p)}`),
+    reservarTurno: p => http("POST", `${A0()}/turnos`, p),
+    clases: () => http("GET", `${A0()}/clases`),
+    inscribir: p => http("POST", `${A0()}/inscripciones`, p),
+    franjas: p => http("GET", `${A0()}/franjas${qs(p)}`),
+    pedir: p => http("POST", `${A0()}/pedidos`, p),
+    reserva: p => http("GET", `/api/reserva/${p.codigo}`),
+    cancelarReserva: p => http("POST", `/api/reserva/${p.codigo}/cancelar`),
+    panel: () => http("GET", P),
+    agenda: p => http("GET", `${P}/agenda${qs(p)}`),
+    estadoTurno: p => http("POST", `${P}/turnos/${p.id}`, {estado: p.estado}),
+    asistencia: p => http("POST", `${P}/inscripciones/${p.id}`, {asistio: p.asistio}),
+    pedidos: p => http("GET", `${P}/pedidos${qs(p)}`),
+    estadoPedido: p => http("POST", `${P}/pedidos/${p.id}`, {estado: p.estado}),
+    stock: () => http("GET", `${P}/stock`),
+    ajustarStock: p => http("POST", `${P}/stock/${p.id}`, {stock: p.stock, vendido: p.vendido}),
+    socios: () => http("GET", `${P}/socios`),
+    pagarCuota: p => http("POST", `${P}/socios/pago`, p),
+    caja: p => http("GET", `${P}/caja${qs(p)}`),
+    movimiento: p => http("POST", `${P}/movimientos`, p),
+    novedades: p => http("GET", `${P}/novedades${qs(p)}`),
+  };
+
+  function call(metodo, params) {
+    if (back) return back[metodo](params || {});
+    return rutas[metodo](params || {});
+  }
+
+  // Avisos en vivo: en la demo los manda el backend del navegador; en producción se consulta cada 20 s.
+  function suscribir(f) {
+    if (back) return back.suscribir(f);
+    if (!clave) return () => {};
+    let desde = new Date().toISOString();
+    const t = setInterval(async () => {
+      try { const ns = await rutas.novedades({desde}); if (ns.length) { desde = ns[ns.length - 1].creado; ns.forEach(x => f(x.tipo, x)); } } catch (e) { /* sin conexión: reintenta */ }
+    }, 20000);
+    return () => clearInterval(t);
+  }
+
+  return {call, suscribir, demo, clave, get slug() { return slug; }, set slug(v) { slug = v; }, codigoUrl, esDemo: !!back};
+})();
