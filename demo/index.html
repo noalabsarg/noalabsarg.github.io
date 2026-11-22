@@ -58,12 +58,31 @@
   .wa .typing{align-self:flex-start;background:#fff;padding:8px 12px;border-radius:9px;font-size:13px;color:#8A949C}
   .wa .foot{padding:8px 10px;background:#F0F0F0;display:flex;gap:8px}
   .wa .foot div{flex:1;background:#fff;border-radius:20px;padding:9px 14px;color:#9AA;font-size:14px}
+  /* Instagram y Messenger */
+  .wa.ig,.wa.fb{background:#fff}
+  .wa.ig .hd,.wa.fb .hd{background:#fff;color:#111;border-bottom:1px solid #EAEAEA}
+  .wa.ig .hd .av{background:#fff;color:var(--acc);box-shadow:0 0 0 2px #fff,0 0 0 4px #D62976}
+  .wa.fb .hd .av{background:#0866FF}
+  .wa.ig .m,.wa.fb .m{box-shadow:none;border-radius:18px;padding:8px 12px 18px}
+  .wa.ig .m.out{background:#3797F0;color:#fff}.wa.fb .m.out{background:#0084FF;color:#fff}
+  .wa.ig .m.out time,.wa.fb .m.out time{color:rgba(255,255,255,.8)}
+  .wa.ig .m.in,.wa.fb .m.in{background:#EFEFEF}.wa.fb .m.in{background:#E4E6EB}
+  .wa.ig .typing,.wa.fb .typing{background:#EFEFEF;border-radius:18px}
+  .wa.ig .foot,.wa.fb .foot{background:#fff;border-top:1px solid #EAEAEA}
+  .wa.ig .foot div,.wa.fb .foot div{background:#F2F2F2}
+  .canal{display:flex;gap:6px;justify-content:center}
+  .canal button{all:unset;cursor:pointer;font:600 12.5px var(--f);padding:6px 12px;border-radius:999px;border:1px solid var(--line,#DDE2EA);color:var(--muted);background:#fff}
+  .canal button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .tap{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);background:var(--navy);color:#fff;font-weight:700;padding:10px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);border:0;cursor:pointer;font:700 14px var(--f);white-space:nowrap;animation:bob 1.6s ease-in-out infinite;z-index:6}
   @keyframes bob{50%{transform:translateX(-50%) translateY(-5px)}}
   .ctrl{text-align:center}
   .ctrl button{all:unset;cursor:pointer;color:var(--muted);font-size:12.5px;font-weight:600;padding:2px 8px}
   .ctrl button:hover{color:var(--ink)}
   .panel-col{display:flex;flex-direction:column;gap:8px;min-width:0;min-height:0}
+  .phead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .roles{display:flex;gap:6px;align-items:center}.roles span{font-size:12px;color:var(--muted)}
+  .roles button{all:unset;cursor:pointer;font:600 12.5px var(--f);padding:6px 12px;border-radius:999px;border:1px solid var(--line,#DDE2EA);color:var(--muted);background:#fff}
+  .roles button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .win{flex:1;background:#fff;border-radius:14px;box-shadow:0 18px 50px rgba(14,24,48,.16);overflow:hidden;display:flex;flex-direction:column;min-height:560px}
   .win .chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#F4F5F7;border-bottom:1px solid #E4E8EE}
   .win .chrome i{width:11px;height:11px;border-radius:50%;background:#E0E3E8}
@@ -98,31 +117,33 @@
 <div class="mtabs"><button data-v="cliente" class="on">📱 Celular del cliente</button><button data-v="panel">💻 Panel del negocio <span id="mbadge"></span></button></div>
 <div class="stage" id="stage" data-v="cliente">
   <div class="phone-col"><span class="lbl">Así lo ve tu cliente</span>
-    <div class="phone"><div class="screen" id="screen"><div class="notch"></div></div></div><div class="ctrl"><button id="rechat">↺ Volver al chat de WhatsApp</button></div></div>
-  <div class="panel-col"><span class="lbl">Así lo ves vos, al instante</span>
+    <div class="canal" role="group" aria-label="Por dónde te escribe el cliente"><button data-c="wa" class="on">WhatsApp</button><button data-c="ig">Instagram</button><button data-c="fb">Facebook</button></div>
+    <div class="phone"><div class="screen" id="screen"><div class="notch"></div></div></div><div class="ctrl"><button id="rechat">↺ Volver al chat</button></div></div>
+  <div class="panel-col"><div class="phead"><span class="lbl">Así lo ves vos, al instante</span>
+    <div class="roles" id="vercomo" role="group" aria-label="Ver el panel como"><span>Ver como</span><button data-rol="dueño" class="on">Dueño</button><button data-rol="encargado">Encargado</button><button data-rol="empleado">Empleado</button></div></div>
     <div class="win"><div class="chrome"><i></i><i></i><i></i><span id="url"></span></div><iframe id="panel" title="Panel del negocio"></iframe></div></div>
 </div>
 <script>
 (function () {
   const R = DEMO_R, api = NOA_DEMO[R];
   const META = {
-    belleza: {grupo: "Servicios", t: "Salón de belleza", i: "💅", c: "Sacá tu turno online", msg: "Hola! Quería sacar turno para uñas 💅", g: ["Tocá el link del WhatsApp", "Sacá un turno como si fueras clienta", "Mirá cómo aparece en la agenda de la profesional"]},
-    taller: {grupo: "Servicios", t: "Taller mecánico", i: "🔧", c: "Pedí turno en el taller o a domicilio", msg: "Buenas, necesito hacerle el service al auto", g: ["Tocá el link del WhatsApp", "Pedí turno en el taller o a domicilio", "Mirá el turno con el auto y la patente en el panel"]},
-    consultorio: {grupo: "Servicios", t: "Consultorio", i: "🩺", c: "Sacá turno con tu profesional", msg: "Hola, ¿tienen turno con la odontóloga esta semana?", g: ["Tocá el link del WhatsApp", "Elegí profesional, día y hora", "Mirá la agenda de cada profesional en el panel"]},
-    estudio: {grupo: "Servicios", t: "Estudio contable", i: "📊", c: "Agendá tu reunión", msg: "Hola! Necesito una consulta por el monotributo", g: ["Tocá el link del WhatsApp", "Agendá una reunión en el estudio o por videollamada", "Mirá la reunión con el CUIT y el tema en el panel"]},
-    gimnasio: {grupo: "Deporte", t: "Gimnasio", i: "💪", c: "Reservá tu clase", msg: "Hola! Hay lugar en funcional mañana?", g: ["Tocá el link del WhatsApp", "Reservá una clase (probá con una socia con la cuota vencida)", "Mirá cómo baja el cupo y aparece en la lista"]},
-    canchas: {grupo: "Deporte", t: "Canchas de pádel y fútbol", i: "🎾", c: "Reservá tu cancha", msg: "Hola! Tienen cancha de pádel hoy a la noche?", g: ["Tocá el link del WhatsApp", "Reservá una cancha y un horario", "Mirá cada cancha ocupada en el panel"]},
-    danza: {grupo: "Deporte", t: "Academia de danza", i: "💃", c: "Reservá tu lugar en la clase", msg: "Hola! Quiero ir a folklore esta semana", g: ["Tocá el link del WhatsApp", "Reservá una clase (probá con una alumna con la cuota vencida)", "Mirá los anotados de cada clase en el panel"]},
-    mates: {grupo: "Comercios", t: "Matería", i: "🧉", c: "Catálogo con stock y precios", msg: "Hola! Tienen mates imperiales?", g: ["Tocá el link del WhatsApp", "Reservá productos para retirar o con envío", "Mirá cómo baja el stock y entra el pedido"]},
-    ferreteria: {grupo: "Comercios", t: "Ferretería", i: "🔩", c: "Catálogo con stock y precios", msg: "Hola, tenés tomacorrientes dobles?", g: ["Tocá el link del WhatsApp", "Buscá y armá un pedido", "Mirá el pedido y el stock actualizados en el panel"]},
-    almacen: {grupo: "Comercios", t: "Almacén y despensa", i: "🛒", c: "Armá tu pedido", msg: "Hola! Me mandás leche, pan y huevos?", g: ["Tocá el link del WhatsApp", "Armá el pedido con envío", "Mirá el pedido y el stock en el panel"]},
-    ropa: {grupo: "Comercios", t: "Tienda de ropa", i: "👕", c: "Talles y stock reales", msg: "Hola! Tenés la remera blanca en talle M?", g: ["Tocá el link del WhatsApp", "Reservá una prenda en tu talle", "Mirá cómo se aparta del stock en el panel"]},
-    cafe: {grupo: "Gastronomía", t: "Café", i: "☕", c: "Pedí para llevar o reservá mesa", msg: "Hola! Puedo encargar medialunas para las 9?", g: ["Tocá el link del WhatsApp", "Pedí para llevar o reservá una mesa", "Mirá el pedido y la reserva en el panel"]},
-    restaurante: {grupo: "Gastronomía", t: "Restaurante y bar", i: "🍷", c: "Reservá mesa o pedí para llevar", msg: "Hola! Tienen mesa para 4 el sábado a la noche?", g: ["Tocá el link del WhatsApp", "Reservá una mesa o pedí empanadas para llevar", "Mirá las mesas ocupadas y los pedidos en el panel"]},
-    rotiseria: {grupo: "Gastronomía", t: "Rotisería", i: "🍗", c: "Encargá y retirá sin esperar", msg: "Hola! Me guardás un pollo para las 13?", g: ["Tocá el link del WhatsApp", "Encargá para una hora", "Mirá los pedidos por horario en el panel"]},
-    heladeria: {grupo: "Gastronomía", t: "Heladería", i: "🍦", c: "Pedí tu helado", msg: "Hola! Hacen envíos de helado?", g: ["Tocá el link del WhatsApp", "Pedí un kilo con envío", "Mirá el pedido con los gustos en el panel"]},
-    cabanas: {grupo: "Alojamiento", t: "Cabañas y alquiler temporario", i: "🏡", c: "Disponibilidad y precio de tus fechas", msg: "Hola! Tienen cabaña para 4 el finde largo?", g: ["Tocá el link del WhatsApp", "Elegí fechas y una cabaña libre", "Mirá la reserva esperando la seña en el panel"]},
-    inmobiliaria: {grupo: "Alojamiento", t: "Inmobiliaria", i: "🏠", c: "Propiedades y visitas", msg: "Hola! Sigue disponible el depto del centro?", g: ["Tocá el link del WhatsApp", "Elegí una propiedad y coordiná la visita", "Mirá las visitas del día en el panel"]},
+    belleza: {grupo: "Servicios", t: "Salón de belleza", i: "💅", c: "Sacá tu turno online", msg: "Hola! Quería sacar turno para uñas 💅", g: ["Tocá el link del chat", "Sacá un turno como si fueras clienta", "Mirá cómo aparece en la agenda de la profesional"]},
+    taller: {grupo: "Servicios", t: "Taller mecánico", i: "🔧", c: "Pedí turno en el taller o a domicilio", msg: "Buenas, necesito hacerle el service al auto", g: ["Tocá el link del chat", "Pedí turno en el taller o a domicilio", "Mirá el turno con el auto y la patente en el panel"]},
+    consultorio: {grupo: "Servicios", t: "Consultorio", i: "🩺", c: "Sacá turno con tu profesional", msg: "Hola, ¿tienen turno con la odontóloga esta semana?", g: ["Tocá el link del chat", "Elegí profesional, día y hora", "Mirá la agenda de cada profesional en el panel"]},
+    estudio: {grupo: "Servicios", t: "Estudio contable", i: "📊", c: "Agendá tu reunión", msg: "Hola! Necesito una consulta por el monotributo", g: ["Tocá el link del chat", "Agendá una reunión en el estudio o por videollamada", "Mirá la reunión con el CUIT y el tema en el panel"]},
+    gimnasio: {grupo: "Deporte", t: "Gimnasio", i: "💪", c: "Reservá tu clase", msg: "Hola! Hay lugar en funcional mañana?", g: ["Tocá el link del chat", "Reservá una clase (probá con una socia con la cuota vencida)", "Mirá cómo baja el cupo y aparece en la lista"]},
+    canchas: {grupo: "Deporte", t: "Canchas de pádel y fútbol", i: "🎾", c: "Reservá tu cancha", msg: "Hola! Tienen cancha de pádel hoy a la noche?", g: ["Tocá el link del chat", "Reservá una cancha y un horario", "Mirá cada cancha ocupada en el panel"]},
+    danza: {grupo: "Deporte", t: "Academia de danza", i: "💃", c: "Reservá tu lugar en la clase", msg: "Hola! Quiero ir a folklore esta semana", g: ["Tocá el link del chat", "Reservá una clase (probá con una alumna con la cuota vencida)", "Mirá los anotados de cada clase en el panel"]},
+    mates: {grupo: "Comercios", t: "Matería", i: "🧉", c: "Catálogo con stock y precios", msg: "Hola! Tienen mates imperiales?", g: ["Tocá el link del chat", "Reservá productos para retirar o con envío", "Mirá cómo baja el stock y entra el pedido"]},
+    ferreteria: {grupo: "Comercios", t: "Ferretería", i: "🔩", c: "Catálogo con stock y precios", msg: "Hola, tenés tomacorrientes dobles?", g: ["Tocá el link del chat", "Buscá y armá un pedido", "Mirá el pedido y el stock actualizados en el panel"]},
+    almacen: {grupo: "Comercios", t: "Almacén y despensa", i: "🛒", c: "Armá tu pedido", msg: "Hola! Me mandás leche, pan y huevos?", g: ["Tocá el link del chat", "Armá el pedido con envío", "Mirá el pedido y el stock en el panel"]},
+    ropa: {grupo: "Comercios", t: "Tienda de ropa", i: "👕", c: "Talles y stock reales", msg: "Hola! Tenés la remera blanca en talle M?", g: ["Tocá el link del chat", "Reservá una prenda en tu talle", "Mirá cómo se aparta del stock en el panel"]},
+    cafe: {grupo: "Gastronomía", t: "Café", i: "☕", c: "Pedí para llevar o reservá mesa", msg: "Hola! Puedo encargar medialunas para las 9?", g: ["Tocá el link del chat", "Pedí para llevar o reservá una mesa", "Mirá el pedido y la reserva en el panel"]},
+    restaurante: {grupo: "Gastronomía", t: "Restaurante y bar", i: "🍷", c: "Reservá mesa o pedí para llevar", msg: "Hola! Tienen mesa para 4 el sábado a la noche?", g: ["Tocá el link del chat", "Reservá una mesa o pedí empanadas para llevar", "Mirá las mesas ocupadas y los pedidos en el panel"]},
+    rotiseria: {grupo: "Gastronomía", t: "Rotisería", i: "🍗", c: "Encargá y retirá sin esperar", msg: "Hola! Me guardás un pollo para las 13?", g: ["Tocá el link del chat", "Encargá para una hora", "Mirá los pedidos por horario en el panel"]},
+    heladeria: {grupo: "Gastronomía", t: "Heladería", i: "🍦", c: "Pedí tu helado", msg: "Hola! Hacen envíos de helado?", g: ["Tocá el link del chat", "Pedí un kilo con envío", "Mirá el pedido con los gustos en el panel"]},
+    cabanas: {grupo: "Alojamiento", t: "Cabañas y alquiler temporario", i: "🏡", c: "Disponibilidad y precio de tus fechas", msg: "Hola! Tienen cabaña para 4 el finde largo?", g: ["Tocá el link del chat", "Elegí fechas y una cabaña libre", "Mirá la reserva esperando la seña en el panel"]},
+    inmobiliaria: {grupo: "Alojamiento", t: "Inmobiliaria", i: "🏠", c: "Propiedades y visitas", msg: "Hola! Sigue disponible el depto del centro?", g: ["Tocá el link del chat", "Elegí una propiedad y coordiná la visita", "Mirá las visitas del día en el panel"]},
   };
   if (!META[R]) location.search = "?r=belleza";
   const m = META[R];
@@ -135,20 +156,28 @@
   document.getElementById("guide").innerHTML = m.g.map((t, i) => `<span><i>${i + 1}</i>${i === 2 ? "<b>" + t + "</b>" : t}</span>`).join("");
   const panel = document.getElementById("panel");
   panel.src = `../app/panel.html?demo=${R}`;
+  // Usuarios y roles: el mismo panel, visto por el dueño, un encargado o un empleado (cada uno con su usuario y contraseña).
+  document.querySelectorAll("#vercomo button").forEach(b => b.onclick = () => {
+    api._verComo(b.dataset.rol); document.querySelectorAll("#vercomo button").forEach(x => x.classList.toggle("on", x === b));
+    panel.src = `../app/panel.html?demo=${R}&v=${Date.now()}`;
+  });
   let info = null;
   api.panel().then(p => { document.getElementById("url").textContent = "panel.noalabs · " + p.nombre; });
   const screen = document.getElementById("screen");
   const hora = () => { const d = new Date(); return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
   const S = api._S.negocio;
+  let CANAL = "wa";
+  const usuario = () => "@" + S.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
   function chat() {
-    screen.innerHTML = `<div class="notch"></div><div class="wa"><div class="hd"><div class="av">${S.nombre.replace(/^(Salón|Taller|Café|Gimnasio|Ferretería|Matería)\s+/i, "")[0]}</div><div><b>${S.nombre}</b><small>Cuenta de empresa</small></div></div>
+    const sub = {wa: "Cuenta de empresa", ig: usuario(), fb: "Página · Responde al instante"}[CANAL];
+    screen.innerHTML = `<div class="notch"></div><div class="wa ${CANAL === "wa" ? "" : CANAL}"><div class="hd"><div class="av">${S.nombre.replace(/^(Salón|Taller|Café|Gimnasio|Ferretería|Matería)\s+/i, "")[0]}</div><div><b>${S.nombre}</b><small>${sub}</small></div></div>
       <div class="msgs" id="msgs"></div><div class="foot"><div>Mensaje</div></div></div>`;
     const msgs = document.getElementById("msgs");
     const add = (html, cls, delay) => setTimeout(() => { const d = document.createElement("div"); d.className = "m " + cls; d.innerHTML = html + `<time>${hora()}</time>`; msgs.append(d); msgs.scrollTop = 1e6; }, delay);
     add(m.msg, "out", 200);
     setTimeout(() => { const t = document.createElement("div"); t.className = "typing"; t.textContent = "escribiendo…"; t.id = "typ"; msgs.append(t); }, 700);
     setTimeout(() => { const t = document.getElementById("typ"); if (t) t.remove(); }, 1500);
-    add(`<span class="auto">Mensaje automático</span>${S.bienvenida}<br><a class="lk" data-open>${S.link}</a><a class="card" data-open><i>${m.i}</i><b>${S.nombre}</b><span>${m.c}</span></a>`, "in", 1550);
+    add(`<span class="auto">${CANAL === "wa" ? "Mensaje automático" : "Respuesta instantánea"}</span>${S.bienvenida}<br><a class="lk" data-open>${S.link}</a><a class="card" data-open><i>${m.i}</i><b>${S.nombre}</b><span>${m.c}</span></a>`, "in", 1550);
     setTimeout(() => {
       msgs.querySelectorAll("[data-open]").forEach(a => a.onclick = abrir);
       const b = document.createElement("button"); b.className = "tap"; b.textContent = "👆 Tocá el link"; b.onclick = abrir; screen.append(b);
@@ -158,6 +187,9 @@
     screen.innerHTML = `<div class="notch"></div><iframe title="Página del cliente" src="../app/cliente.html?demo=${R}"></iframe>`;
   }
   document.getElementById("rechat").onclick = chat;
+  document.querySelectorAll(".canal button").forEach(b => b.onclick = () => {
+    CANAL = b.dataset.c; document.querySelectorAll(".canal button").forEach(x => x.classList.toggle("on", x === b)); chat();
+  });
   // Celular: pestañas
   const stage = document.getElementById("stage");
   document.querySelectorAll(".mtabs button").forEach(b => b.onclick = () => {

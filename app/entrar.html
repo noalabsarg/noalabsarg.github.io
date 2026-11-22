@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Entrar al panel</title>
+<link rel="stylesheet" href="panel.css">
+<style>
+  body{display:grid;place-items:center;min-height:100vh;background:#F4F6F9}
+  .box{background:#fff;border:1px solid var(--line,#E3E7ED);border-radius:14px;padding:26px 24px;width:min(360px,92vw)}
+  .box h1{font-size:20px;margin:0 0 4px}.box p{color:var(--muted,#6B7280);font-size:13.5px;margin:0 0 16px}
+  .box .txt{width:100%;box-sizing:border-box;margin-bottom:10px}.box .b{width:100%;justify-content:center}
+</style>
+</head>
+<body>
+<form class="box" id="f" novalidate>
+  <h1>Entrar al panel</h1>
+  <p>Con el usuario y la contraseña que te dio el dueño del negocio.</p>
+  <label class="lbl2" for="u">Usuario</label><input class="txt" id="u" autocomplete="username" autocapitalize="none" spellcheck="false">
+  <label class="lbl2" for="c">Contraseña</label><input class="txt" id="c" type="password" autocomplete="current-password">
+  <div id="err"></div>
+  <button class="b p" id="ok">Entrar</button>
+</form>
+<script>
+  const $ = s => document.querySelector(s);
+  $("#f").onsubmit = async ev => {
+    ev.preventDefault();
+    const b = $("#ok"); b.disabled = true; b.textContent = "Entrando…"; $("#err").innerHTML = "";
+    try {
+      const r = await fetch("/api/entrar", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({usuario: $("#u").value.trim(), clave: $("#c").value})});
+      const j = await r.json();
+      if (!r.ok) throw new Error((j.detail && j.detail.msg) || "No se pudo entrar.");
+      location.href = j.panel;
+    } catch (e) {
+      $("#err").innerHTML = `<div class="err">${String(e.message).replace(/[<>&]/g, "")}</div>`;
+      b.disabled = false; b.textContent = "Entrar";
+    }
+  };
+</script>
+</body>
+</html>

@@ -16,7 +16,7 @@
   const st = {};                        // estado del recorrido actual
   const cart = new Map();               // producto -> cantidad
   const guardado = (() => { try { return JSON.parse(localStorage.getItem("noa-cliente") || "{}"); } catch (e) { return {}; } })();
-  const recordar = (n, t) => { try { localStorage.setItem("noa-cliente", JSON.stringify({n, t})); } catch (e) {} };
+  const recordar = (n, t) => { try { localStorage.setItem("noa-cliente", JSON.stringify({n, t, c: guardado.c})); } catch (e) {} };
 
   function pantalla(titulo, cuerpo, volver) {
     app().innerHTML = `<div class="head">${volver ? `<button class="back" id="volver" aria-label="Volver">←</button>` : ""}<h2>${titulo}</h2></div>${cuerpo}`;
@@ -35,6 +35,7 @@
   // ── Inicio ────────────────────────────────────────────────────────
   async function inicio() {
     app().innerHTML = cargando(4);
+    if (NOA.presupuesto && !NOA.slug && !NOA.esDemo) { try { NOA.slug = (await call("verPresupuesto", {codigo: NOA.presupuesto})).slug; } catch (e) { return error(e.message); } }
     if (NOA.codigoUrl && !NOA.slug && !NOA.esDemo) { try { NOA.slug = (await call("reserva", {codigo: NOA.codigoUrl})).slug; } catch (e) { /* lo maneja cancelar() */ } }
     try { INFO = await call("info"); } catch (e) { app().innerHTML = `<div class="err">${esc(e.message)}</div>`; return; }
     document.title = INFO.nombre;
@@ -44,6 +45,8 @@
     if (INFO.maps) $("#ubic").href = INFO.maps;
     if (INFO.whatsapp) { $("#wa").href = `https://wa.me/${INFO.whatsapp}`; $("#wa").innerHTML = WA_SVG; $("#wa").hidden = false; }
     if (NOA.codigoUrl) return cancelar(NOA.codigoUrl);
+    if (NOA.encuesta) return encuesta(NOA.encuesta);
+    if (NOA.presupuesto) return presupuesto(NOA.presupuesto);
     const tabs = [];
     if (INFO.servicios.length) tabs.push(["turnos", (INFO.textos && INFO.textos.turnos) || "Sacar turno"]);
     if (INFO.actividades.length) tabs.push(["clases", "Reservar clase"]);
@@ -73,7 +76,7 @@
     pantalla(T("servicio_titulo") || (INFO.rubro === "cafe" ? "¿Para cuántos?" : "¿Qué servicio querés?"),
       (cats.length > 1 ? `<div class="chips"><button class="chip ${!st.cat ? "on" : ""}" data-c="">Todos</button>${cats.map(c => `<button class="chip ${st.cat === c ? "on" : ""}" data-c="${esc(c)}">${esc(c)}</button>`).join("")}</div>` : "") +
       `<div class="list">${lista.map(s => `<button class="opt" data-s="${s.id}"><span class="tx"><b>${esc(s.nombre)}</b><small>${esc([s.desc, ["cafe", "restaurante", "inmobiliaria", "canchas"].includes(INFO.rubro) ? "" : s.min >= 60 ? `${Math.floor(s.min / 60)} h${s.min % 60 ? " " + (s.min % 60) + " min" : ""}` : s.min + " min",
-      s.modalidad === "domicilio" ? "A domicilio" : s.modalidad === "ambos" ? (T("modal") ? `${T("modal").local.t} o ${T("modal").domicilio.t.toLowerCase()}` : "En el taller o a domicilio") : ""].filter(Boolean).join(" · "))}</small></span><span class="pr">${esc(s.precio_txt)}</span></button>`).join("")}</div>`);
+      s.modalidad === "domicilio" ? "A domicilio" : s.modalidad === "ambos" ? (T("modal") ? `${T("modal").local.t} o ${T("modal").domicilio.t.toLowerCase()}` : "En el taller o a domicilio") : ""].filter(Boolean).join(" · "))}</small></span><span class="pr">${esc(s.desde_txt || s.precio_txt)}</span></button>`).join("")}</div>`);
     app().querySelectorAll("[data-c]").forEach(b => b.onclick = () => { st.cat = b.dataset.c || null; servicios(); });
     app().querySelectorAll("[data-s]").forEach(b => b.onclick = () => {
       st.s = INFO.servicios.find(x => K(x.id) === b.dataset.s); st.pro = null; st.modalidad = st.s.modalidad === "domicilio" ? "domicilio" : "local";
@@ -103,7 +106,7 @@
       servicios);
     app().querySelectorAll("[data-m]").forEach(b => b.onclick = () => { st.modalidad = b.dataset.m; dias(); });
   }
-  const resTurno = () => resumen([`<b>${esc(st.s.nombre)}</b>`, st.s.precio ? `<span>${esc(st.s.precio_txt)}</span>` : "", st.pro && INFO.elegir_pro ? `<span>con ${esc(st.pro.nombre)}</span>` : "",
+  const resTurno = () => resumen([`<b>${esc(st.s.nombre)}</b>`, st.hora && st.hora.precio_txt ? `<span>${esc(st.hora.precio_txt)}</span>` : st.s.desde_txt ? `<span>${esc(st.s.desde_txt)}</span>` : st.s.precio ? `<span>${esc(st.s.precio_txt)}</span>` : "", st.pro && INFO.elegir_pro ? `<span>con ${esc(st.pro.nombre)}</span>` : "",
                                    st.modalidad === "domicilio" ? `<span>${T("modal") ? T("modal").domicilio.t.toLowerCase() : "a domicilio"}</span>` : "", st.dia ? `<span>${esc(st.dia.nombre)}</span>` : "", st.hora ? `<span>${st.hora.hora}</span>` : ""]);
   async function dias() {
     st.dia = st.hora = null;
@@ -112,8 +115,14 @@
     let ds;
     try { ds = await call("dias", {servicio: st.s.id, pro: st.pro && st.pro.id, modalidad: st.modalidad}); } catch (e) { return error(e.message); }
     pantalla("¿Qué día?", resTurno() + (ds.length ? `<div class="grid">${ds.map(d => `<button class="slot" data-d="${d.fecha}">${esc(d.nombre)}<small>${d.libres} libre${d.libres > 1 ? "s" : ""}</small></button>`).join("")}</div>`
-      : `<p class="empty">No quedan lugares en los próximos días. Escribinos por WhatsApp.</p>`), volver);
+      : `<p class="empty">No quedan lugares en los próximos días.</p>`) + `<button class="btn sec" id="esp" style="margin-top:14px">${ds.length ? "¿El día que querés está completo? Anotate en la lista de espera" : "Anotarme en la lista de espera"}</button>`, volver);
     app().querySelectorAll("[data-d]").forEach(b => b.onclick = () => { st.dia = ds.find(d => d.fecha === b.dataset.d); horas(); });
+    $("#esp").onclick = () => {
+      const con = new Set(ds.map(d => d.fecha)), DS = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"], op = [];
+      for (let i = 0; i < 14; i++) { const d = new Date(Date.now() + i * 864e5), f = d.toLocaleDateString("en-CA", {timeZone: "America/Argentina/Salta"}); const x = new Date(f + "T12:00:00"); if (!con.has(f) && (!INFO.abre || INFO.abre.includes((x.getDay() + 6) % 7))) { op.push(`<option value="${f}">${DS[x.getDay()]} ${x.getDate()}/${x.getMonth() + 1}</option>`); } }
+      if (!op.length) return pantalla("Lista de espera", resTurno() + `<p class="empty">Todos los días que atendemos en las próximas dos semanas tienen lugar. Volvé atrás y elegí uno.</p>`, dias);
+      esperaForm("Lista de espera", resTurno() + `<label class="f" for="ed">¿Qué día querías?</label><select class="in" id="ed">${op.join("")}</select>`, () => ({servicio: st.s.id, dia: $("#ed").value}), dias);
+    };
   }
   async function horas() {
     st.hora = null;
@@ -121,26 +130,49 @@
     let hs;
     try { hs = await call("horas", {servicio: st.s.id, dia: st.dia.fecha, pro: st.pro && st.pro.id, modalidad: st.modalidad}); } catch (e) { return error(e.message); }
     const man = hs.filter(h => +h.hora.slice(0, 2) < 13), tar = hs.filter(h => +h.hora.slice(0, 2) >= 13);
-    const bloque = (t, l) => l.length ? `<div class="dayh">${t}</div><div class="grid">${l.map(h => `<button class="slot" data-h="${h.inicio}">${h.hora}</button>`).join("")}</div>` : "";
+    const bloque = (t, l) => l.length ? `<div class="dayh">${t}</div><div class="grid">${l.map(h => `<button class="slot" data-h="${h.inicio}">${h.hora}${h.precio_txt ? `<small>${esc(h.precio_txt)}</small>` : ""}</button>`).join("")}</div>` : "";
     pantalla("¿A qué hora?", resTurno() + (hs.length ? bloque("Mañana", man) + bloque("Tarde", tar) : `<p class="empty">Ese día ya no quedan horarios.</p>`), dias);
     app().querySelectorAll("[data-h]").forEach(b => b.onclick = () => { st.hora = hs.find(h => h.inicio === b.dataset.h); datosTurno(); });
   }
-  function camposPersona() {
+  function camposPersona(area, sinCumple) {
     return `<label class="f" for="n">Nombre y apellido</label><input class="in" id="n" autocomplete="name" value="${esc(guardado.n || "")}">
       <label class="f" for="t">Celular</label><input class="in" id="t" type="tel" inputmode="tel" autocomplete="tel" placeholder="387 612 4879" value="${esc(guardado.t || "")}">
-      <p class="hint">Con código de área, sin 0 y sin 15.</p><input class="hp" id="web" tabindex="-1" autocomplete="off" aria-hidden="true">`;
+      <p class="hint">Con código de área, sin 0 y sin 15.</p><input class="hp" id="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+      ${INFO.pedir_cumple && !sinCumple ? `<label class="f" for="cum">Tu cumpleaños <span style="font-weight:400;color:var(--muted)">(opcional, para saludarte)</span></label><input class="in" id="cum" inputmode="numeric" placeholder="dd/mm, ej: 15/03" maxlength="5" value="${esc(guardado.c || "")}">` : ""}
+      ${area && (INFO.promos || []).includes(area) ? `<details class="cod" ${st.codigo ? "open" : ""}><summary>¿Tenés un código de descuento?</summary><div style="display:flex;gap:6px"><input class="in" id="cod" autocapitalize="characters" placeholder="Ej: BIENVENIDA10" value="${esc(st.codigo || "")}" style="text-transform:uppercase"><button type="button" class="btn sec" id="cod-ok" style="width:auto;margin:0;padding:0 14px">Aplicar</button></div><p class="hint" id="cod-h"></p></details>` : ""}`;
+  }
+  function conectarCodigo(area) {
+    const i = $("#cod"); if (!i) return;
+    const probar = async () => {
+      st.codigo = i.value.trim().toUpperCase(); const h = $("#cod-h");
+      if (!st.codigo) { h.textContent = ""; return; }
+      try { const r = await call("probarCodigo", {codigo: st.codigo, area}); h.innerHTML = `<b style="color:#1F8A5B">✓ ${esc(r.texto)}</b>. Se descuenta al confirmar.`; }
+      catch (e) { h.innerHTML = `<span style="color:#B42318">${esc(e.message)}</span>`; }
+    };
+    $("#cod-ok").onclick = probar; i.onchange = probar;
+    if (st.codigo) probar();
   }
   function datosTurno() {
     const extra = INFO.campos_extra.map(c => `<label class="f" for="x-${c.id}">${esc(c.label)}</label><input class="in" id="x-${c.id}" placeholder="${esc(c.ph || "")}">`).join("");
-    pantalla("Tus datos", resTurno() + `<form id="f" novalidate>${camposPersona()}${extra}
+    const cobs = INFO.coberturas || [];
+    const cob = cobs.length ? `<label class="f" for="cob">¿Cómo te atendés?</label><select class="in" id="cob"><option value="particular">Particular · ${esc(st.s.precio_txt)}</option>
+      ${cobs.map(o => `<option value="${esc(o.id)}">${esc(o.nombre)} · ${o.coseguro ? "coseguro " + esc(o.coseguro_txt) : "sin cargo"}</option>`).join("")}</select>
+      <p class="hint" id="cob-h">Pagás ${esc(st.hora && st.hora.precio_txt || st.s.precio_txt)} en el consultorio.</p>` : "";
+    pantalla("Tus datos", resTurno() + `<form id="f" novalidate>${camposPersona("turnos")}${cob}${extra}
       ${st.modalidad === "domicilio" && !(T("modal") && T("modal").sin_dir) ? `<label class="f" for="dir">¿Dónde está el auto?</label><input class="in" id="dir" placeholder="Calle, número y barrio" autocomplete="street-address">` : ""}
       <label class="check"><input type="checkbox" id="a" checked> Acepto que me manden el recordatorio del turno por WhatsApp.</label>
       <button class="btn" id="ok">Confirmar ${["cafe", "restaurante"].includes(INFO.rubro) ? "reserva" : INFO.rubro === "inmobiliaria" ? "visita" : INFO.rubro === "estudio" ? "reunión" : "turno"}</button></form>`, horas);
+    if ($("#cob")) $("#cob").onchange = () => {
+      const o = cobs.find(x => String(x.id) === $("#cob").value);
+      $("#cob-h").textContent = o ? (o.coseguro ? `Por ${o.nombre} pagás un coseguro de ${o.coseguro_txt}. Traé tu credencial.` : `Por ${o.nombre} no pagás nada en el consultorio. Traé tu credencial.`)
+                                  : `Pagás ${st.hora && st.hora.precio_txt || st.s.precio_txt} en el consultorio.`;
+    };
+    conectarCodigo("turnos");
     $("#f").onsubmit = async ev => {
       ev.preventDefault();
       const p = {servicio: st.s.id, inicio: st.hora.inicio, pro: st.pro ? st.pro.id : st.hora.pro, nombre: $("#n").value.trim(), telefono: $("#t").value.trim(),
                  acepta: $("#a").checked, modalidad: st.modalidad, direccion: $("#dir") ? $("#dir").value.trim() : "", web: $("#web").value,
-                 extra: Object.fromEntries(INFO.campos_extra.map(c => [c.id, $("#x-" + c.id).value.trim()]))};
+                 extra: Object.fromEntries(INFO.campos_extra.map(c => [c.id, $("#x-" + c.id).value.trim()])), cobertura: $("#cob") ? $("#cob").value : undefined};
       if (!st.pro && INFO.elegir_pro) delete p.pro;
       await enviar("reservarTurno", p, () => horas());
     };
@@ -155,20 +187,28 @@
     const acts = INFO.actividades;
     const lista = cs.filter(c => !st.act || K(c.actividad) === st.act);
     let html = `<div class="chips"><button class="chip ${!st.act ? "on" : ""}" data-a="">Todas</button>${acts.map(a => `<button class="chip ${st.act === K(a.id) ? "on" : ""}" data-a="${a.id}">${esc(a.nombre)}</button>`).join("")}</div>`;
-    if (INFO.solo_socios) html += `<p class="hint" style="margin:-4px 0 6px">Reservan los ${T("socio") === "alumno" ? "alumnos" : "socios"} con la cuota al día, con el celular que dejaron en recepción.</p>`;
+    if (INFO.solo_socios) html += `<p class="hint" style="margin:-4px 0 6px">Reservan los ${T("socio") === "alumno" ? "alumnos" : "socios"} con la cuota al día, con el celular que dejaron en recepción${INFO.suelta ? `. Si no sos ${T("socio") === "alumno" ? "alumno" : "socio"}, podés venir a una clase suelta por ${esc(INFO.suelta.precio_txt)}` : ""}.</p>`;
+    if ((INFO.planes || []).length) html += `<details class="planes"><summary>Planes y precios</summary>${INFO.planes.map(p => `<div class="plan"><span><b>${esc(p.nombre)}</b><small>${esc(p.detalle)}</small></span><b>${esc(p.precio_txt)}</b></div>`).join("")}</details>`;
     let dia = "";
     for (const c of lista) {
       if (c.dia !== dia) { dia = c.dia; html += `<div class="dayh">${esc(c.dia)}</div>`; }
       const q = c.cupo - c.ocupados;
-      html += `<button class="cls" data-o="${c.id}" ${q <= 0 ? "disabled" : ""}><span class="h">${c.hora}</span><span class="dot" style="background:${c.color}"></span><span class="tx"><b>${esc(c.nombre)}</b><small>${esc(c.profe)} · ${c.min} min</small></span>
-        <span class="badge ${q <= 0 ? "crit" : q <= 3 ? "warn" : ""}">${q <= 0 ? "Completa" : q === 1 ? "Queda 1" : `Quedan ${q}`}</span></button>`;
+      html += `<button class="cls ${q <= 0 ? "full" : ""}" data-o="${c.id}"><span class="h">${c.hora}</span><span class="dot" style="background:${c.color}"></span><span class="tx"><b>${esc(c.nombre)}</b><small>${esc(c.profe)} · ${c.min} min</small></span>
+        <span class="badge ${q <= 0 ? "crit" : q <= 3 ? "warn" : ""}">${q <= 0 ? "Completa · lista de espera" : q === 1 ? "Queda 1" : `Quedan ${q}`}</span></button>`;
     }
     if (!lista.length) html += `<p class="empty">No hay clases en los próximos días.</p>`;
     pantalla("Reservá tu lugar", `<div class="list" style="gap:8px">${html}</div>`);
     app().querySelectorAll("[data-a]").forEach(b => b.onclick = () => { st.act = b.dataset.a || null; clases(); });
     app().querySelectorAll("[data-o]").forEach(b => b.onclick = () => datosClase(cs.find(c => c.id === b.dataset.o)));
   }
+  function esperaForm(titulo, resumenHtml, datos, volver) {
+    pantalla(titulo, resumenHtml + `<p class="hint" style="margin:0 0 10px">Dejá tus datos y, si alguien cancela, el negocio te escribe por WhatsApp para ofrecerte el lugar. Anotarte no reserva el lugar: lo toma el primero que confirma.</p>
+      <form id="f" novalidate>${camposPersona(null, true)}<button class="btn" id="ok">Anotarme en la lista de espera</button></form>`, volver);
+    $("#f").onsubmit = ev => { ev.preventDefault(); enviar("anotarEspera", {...datos(), nombre: $("#n").value.trim(), telefono: $("#t").value.trim(), web: $("#web").value}); };
+  }
   function datosClase(c) {
+    if (c.cupo - c.ocupados <= 0)
+      return esperaForm("Clase completa", resumen([`<b>${esc(c.nombre)}</b>`, `<span>${esc(c.dia)} ${c.hora}</span>`, `<span>con ${esc(c.profe)}</span>`, c.espera ? `<span>${c.espera} en espera</span>` : ""]), () => ({ocurrencia: c.id}), clases);
     st.clase = c;
     const q = c.cupo - c.ocupados;
     pantalla("Tus datos", resumen([`<b>${esc(c.nombre)}</b>`, `<span>${esc(c.dia)} ${c.hora}</span>`, `<span>con ${esc(c.profe)}</span>`, `<span>${q === 1 ? "queda 1 lugar" : `quedan ${q} lugares`}</span>`]) +
@@ -176,10 +216,15 @@
        <button class="btn" id="ok">Reservar mi lugar</button></form>`, clases);
     $("#f").onsubmit = async ev => {
       ev.preventDefault();
-      await enviar("inscribir", {ocurrencia: c.id, nombre: $("#n").value.trim(), telefono: $("#t").value.trim(), web: $("#web").value}, null, e => {
-        if (["cuota", "socio"].includes(e.tipo) && INFO.whatsapp)
-          return ` <a class="btn wa" style="margin-top:10px" target="_blank" rel="noopener" href="https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(e.tipo === "cuota" ? "Hola! Quiero pagar la cuota para reservar clases." : "Hola! Quiero hacerme socio.")}">${e.tipo === "cuota" ? "Pagar la cuota por WhatsApp" : "Quiero ser socio"}</a>`;
-        return "";
+      const datos = {ocurrencia: c.id, nombre: $("#n").value.trim(), telefono: $("#t").value.trim(), web: $("#web").value};
+      await enviar("inscribir", datos, null, e => {
+        let extra = "";
+        if (["cuota", "socio", "plan"].includes(e.tipo) && INFO.suelta)
+          extra += ` <button type="button" class="btn" id="suelta" style="margin-top:10px">Reservar como clase suelta · ${esc(INFO.suelta.precio_txt)} en recepción</button>`;
+        if (["cuota", "socio", "plan"].includes(e.tipo) && INFO.whatsapp)
+          extra += ` <a class="btn wa" style="margin-top:10px" target="_blank" rel="noopener" href="https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(e.tipo === "cuota" ? "Hola! Quiero pagar la cuota para reservar clases." : e.tipo === "plan" ? "Hola! Quiero cambiar mi plan." : "Hola! Quiero hacerme socio.")}">${e.tipo === "cuota" ? "Pagar la cuota por WhatsApp" : e.tipo === "plan" ? "Cambiar mi plan por WhatsApp" : "Quiero ser socio"}</a>`;
+        setTimeout(() => { if ($("#suelta")) $("#suelta").onclick = () => enviar("inscribir", {...datos, suelta: true}); }, 0);
+        return extra;
       });
     };
   }
@@ -231,11 +276,12 @@
     pantalla("Tu pedido", `<div class="box">${filas}<div class="tot sub"><span>Productos</span><span>${pesos(totalCarrito())}</span></div>${envio ? `<div class="tot sub"><span>Envío</span><span>${pesos(envio)}</span></div>` : ""}<div class="tot"><span>Total</span><span>${pesos(totalCarrito() + envio)}</span></div></div>
       ${e.retiro && e.envio ? `<div class="seg"><button data-e="retiro" class="${st.entrega === "retiro" ? "on" : ""}">Retiro en el local<small>Sin cargo</small></button><button data-e="envio" class="${st.entrega === "envio" ? "on" : ""}">Envío<small>${esc(e.envio.costo_txt)} · ${esc(e.envio.zona || "")}</small></button></div>` : ""}
       <div id="franjas">${cargando(1)}</div>
-      <form id="f" novalidate>${camposPersona()}
+      <form id="f" novalidate>${camposPersona("pedidos")}
         ${st.entrega === "envio" ? `<label class="f" for="dir">Dirección de entrega</label><input class="in" id="dir" placeholder="Calle, número y barrio" autocomplete="street-address" value="${esc(st.dir || "")}">` : ""}
         <label class="f" for="nota">Nota (opcional)</label><textarea class="in" id="nota" placeholder="${esc(T("nota_ph") || (INFO.rubro === "mates" ? "¿Lo querés para regalo? ¿Grabado?" : INFO.rubro === "cafe" ? "Sin azúcar, leche descremada…" : "Medidas, color, marca…"))}">${esc(st.nota || "")}</textarea>
         <button class="btn" id="ok">Confirmar pedido · ${pesos(totalCarrito() + envio)}</button>
         <p class="hint" style="text-align:center">${st.entrega === "envio" ? "Pagás al recibir o por transferencia." : ["rotiseria", "restaurante", "heladeria", "cafe"].includes(INFO.rubro) ? "Pagás cuando retirás." : "Pagás cuando retirás. Te guardamos los productos."}</p></form>`, catalogo);
+    conectarCodigo("pedidos");
     const guardarCampos = () => { st.dir = $("#dir") ? $("#dir").value : st.dir; st.nota = $("#nota").value; guardado.n = $("#n").value; guardado.t = $("#t").value; };
     app().querySelectorAll("[data-e]").forEach(b => b.onclick = () => { guardarCampos(); st.entrega = b.dataset.e; st.franja = null; carrito(); });
     app().querySelectorAll("[data-p]").forEach(b => b.onclick = () => { guardarCampos(); const id = b.dataset.p; cart.set(id, cart.get(id) + 1); carrito(); });
@@ -293,16 +339,18 @@
     us.sort((a, b) => (b.libre - a.libre));
     pantalla("Elegí dónde", resumen([`<b>${esc(corta(st.desde))} → ${esc(corta(st.hasta))}</b>`, `<span>${k} noche${k > 1 ? "s" : ""}</span>`, `<span>${st.personas} persona${st.personas > 1 ? "s" : ""}</span>`]) +
       `<div class="list">${us.map(u => `<button class="opt" data-u="${u.id}" ${u.libre ? "" : "disabled"}><span class="av" style="background:${u.libre ? "#1F8A5B" : "#9AA0AC"}">🏡</span><span class="tx"><b>${esc(u.nombre)}</b>
-        <small>${esc(u.desc || "")} · hasta ${u.capacidad} personas</small><small>${u.libre ? `${esc(u.precio_txt)} por noche · seña ${esc(u.sena_txt)}` : esc(u.motivo)}</small></span><span class="pr">${u.libre ? esc(u.total_txt) : ""}</span></button>`).join("")}</div>
+        <small>${esc(u.desc || "")} · hasta ${u.capacidad} personas</small><small>${u.libre ? `${(u.detalle || []).length ? "" : esc(u.precio_txt) + " por noche · "}seña ${esc(u.sena_txt)}` : esc(u.motivo)}</small>${u.libre && (u.detalle || []).length ? `<small>${u.detalle.map(esc).join(" · ")}</small>` : ""}</span><span class="pr">${u.libre ? esc(u.total_txt) : ""}</span></button>`).join("")}</div>
       ${us.some(u => u.libre) ? "" : `<p class="empty">No hay lugar para esas fechas. Probá otras o escribinos.</p>`}`, fechas);
     app().querySelectorAll("[data-u]").forEach(b => b.onclick = () => datosEstadia(us.find(u => K(u.id) === b.dataset.u)));
   }
   function datosEstadia(u) {
     st.u = u;
     pantalla("Tus datos", resumen([`<b>${esc(u.nombre)}</b>`, `<span>${esc(corta(st.desde))} → ${esc(corta(st.hasta))}</span>`, `<span>${esc(u.total_txt)}</span>`]) +
-      `<form id="f" novalidate>${camposPersona()}<label class="f" for="nota">¿Algo que tengamos que saber? (opcional)</label><textarea class="in" id="nota" placeholder="Llegamos tarde, venimos con mascota…"></textarea>
+      `<form id="f" novalidate>${camposPersona("estadias")}<label class="f" for="nota">¿Algo que tengamos que saber? (opcional)</label><textarea class="in" id="nota" placeholder="Llegamos tarde, venimos con mascota…"></textarea>
+       ${(u.detalle || []).length ? `<div class="info">${u.detalle.map(esc).join("<br>")}<br><b>Total ${esc(u.total_txt)}</b></div>` : ""}
        <div class="info">Para confirmar la reserva transferís la seña de <b>${esc(u.sena_txt)}</b> dentro de las 24 h. El resto lo pagás al llegar.</div>
        <button class="btn" id="ok">Reservar</button></form>`, unidades);
+    conectarCodigo("estadias");
     $("#f").onsubmit = async ev => {
       ev.preventDefault();
       await enviar("reservarEstadia", {unidad: u.id, desde: st.desde, hasta: st.hasta, personas: st.personas, nombre: $("#n").value.trim(), telefono: $("#t").value.trim(), nota: $("#nota").value.trim(), web: $("#web").value},
@@ -316,9 +364,14 @@
     document.querySelectorAll(".err").forEach(e => e.remove());
     if (!p.nombre || p.nombre.length < 2) return error("Escribí tu nombre.");
     if ((p.telefono || "").replace(/\D/g, "").length < 10) return error("Revisá el celular: código de área y número. Ej: 387 612 4879");
+    const cum = $("#cum"), cod = $("#cod");
+    if (cum && cum.value.trim()) { if (!/^\d{1,2}[\/\-. ]\d{1,2}$/.test(cum.value.trim())) return error("Revisá el cumpleaños: día/mes, por ejemplo 15/03."); p.cumple = cum.value.trim(); }
+    if (cod && cod.value.trim()) p.codigo = cod.value.trim().toUpperCase();
     b.disabled = true; b.textContent = "Enviando…";
     try {
       const r = await call(metodo, p);
+      if (p.cumple) guardado.c = p.cumple;
+      st.codigo = null;
       recordar(p.nombre, p.telefono);
       if (metodo === "pedir") { cart.clear(); st.vista = "listo"; barraCarrito(); }
       listo(r);
@@ -329,16 +382,79 @@
       else if (alFallar && e.tipo === "stock") { await alFallar(e); carrito(); setTimeout(() => error(e.message), 50); }
     }
   }
+  // Solo en la demo: muestra cómo sigue el pago, sin cobrar nada. En producción el botón abre el Mercado Pago real.
+  function pagoSimulado(r) {
+    pantalla("", `<div class="sim"><div class="sim-t">Simulación de pago</div><p>En la demo no se cobra nada. En tu negocio, este botón abre Mercado Pago y la plata va directo a tu cuenta.</p>
+      <div class="det"><div><b>Seña · ${esc(r.titulo)}</b></div><div style="font-size:22px;font-weight:700;margin-top:6px">${esc(r.sena)}</div></div>
+      <button class="btn" id="sim-ok">Simular pago aprobado</button><button class="btn sec" id="sim-no">Volver</button></div>`);
+    $(".head") && $(".head").remove();
+    $("#sim-no").onclick = () => listo(r);
+    $("#sim-ok").onclick = async () => {
+      try { await call("_pagarSenaDemo", r.codigo); }
+      catch (e) { return error(e.message); }
+      pantalla("", `<div class="done"><div class="ok">✓</div><h2>¡Seña pagada!</h2><div class="det"><div><b>${esc(r.titulo)}</b></div><div>${r.tipo === "estadia" ? "" : "El "}${esc(r.cuando)}</div>
+        <div>${r.tipo === "estadia" ? "Tu reserva quedó confirmada" : "Tu turno quedó confirmado"}. Mirá el panel: la seña ya entró en la caja.</div></div></div><button class="btn sec" id="otra">Hacer otra reserva</button>`);
+      $(".head") && $(".head").remove(); $("#otra").onclick = () => ir(TAB);
+    };
+  }
+  // Encuesta de satisfacción (el link que le llega al cliente después de la visita)
+  async function encuesta(token) {
+    let e;
+    try { e = await call("encuesta", {token}); } catch (er) { return error(er.message); }
+    let nota = e.ya || 0;
+    const pintar = () => {
+      pantalla(`¿Cómo te fue${e.nombre ? ", " + esc(e.nombre) : ""}?`, `<p class="hint" style="margin:0 0 12px">Tu opinión le llega directo a ${esc(e.negocio)}. Son 10 segundos.</p>
+        <div class="stars" role="radiogroup" aria-label="Tu nota">${[1, 2, 3, 4, 5].map(k => `<button type="button" role="radio" aria-checked="${k === nota}" aria-label="${k} de 5" data-k="${k}" class="${k <= nota ? "on" : ""}">★</button>`).join("")}</div>
+        <p class="hint" style="text-align:center;min-height:18px" id="st-t">${["", "Muy mal", "Mal", "Más o menos", "Bien", "¡Excelente!"][nota]}</p>
+        <form id="f" novalidate><label class="f" for="com">¿Algo que quieras contarnos? (opcional)</label><textarea class="in" id="com" maxlength="500" placeholder="Lo que más te gustó, o lo que podemos mejorar"></textarea>
+        <button class="btn" id="ok" ${nota ? "" : "disabled"}>Enviar</button></form>`);
+      app().querySelectorAll("[data-k]").forEach(b => b.onclick = () => { nota = Number(b.dataset.k); const c = $("#com").value; pintar(); $("#com").value = c; });
+      $("#f").onsubmit = async ev => {
+        ev.preventDefault(); const b = $("#ok"); b.disabled = true; b.textContent = "Enviando…";
+        try {
+          const r = await call("responderEncuesta", {token, nota, comentario: $("#com").value});
+          pantalla("", `<div class="done"><div class="ok">✓</div><h2>¡Gracias!</h2><div class="det"><div>${nota >= 4 ? "Nos alegra mucho que te haya gustado." : "Gracias por contarnos. Se lo pasamos al dueño para mejorar."}</div></div></div>
+            ${r.resena_url ? `<a class="btn sec" href="${esc(r.resena_url)}" target="_blank" rel="noopener">Si querés, contalo también en Google</a>` : ""}`);
+          $(".head") && $(".head").remove();
+        } catch (er) { b.disabled = false; b.textContent = "Enviar"; error(er.message); }
+      };
+    };
+    pintar();
+  }
+  // Presupuesto (talleres): el cliente lo ve completo y lo acepta
+  async function presupuesto(cod) {
+    let p;
+    try { p = await call("verPresupuesto", {codigo: cod}); } catch (e) { return error(e.message); }
+    const turnos = () => NOA.esDemo ? `${location.pathname}?demo=${NOA.demo}` : `/r/${p.slug}`;
+    const est = {aceptado: "Ya lo aceptaste ✓", rechazado: "Lo rechazaste", vencido: "Este presupuesto venció. Escribinos y te lo actualizamos."}[p.estado];
+    pantalla(`Presupuesto N° ${p.numero}`, resumen([`<b>${esc(p.nombre ? "Para " + p.nombre : p.negocio)}</b>`, p.auto ? `<span>${esc(p.auto)}${p.patente ? " · " + esc(p.patente) : ""}</span>` : "", `<span>vale hasta el ${esc(p.validez)}</span>`]) +
+      `<div class="box">${p.items.map(i => `<div class="line"><span class="tx"><b>${esc(i.desc)}</b><small>${i.cant !== 1 ? `${i.cant} × ${esc(i.precio_txt)}` : ""}</small></span><span>${esc(i.subtotal_txt)}</span></div>`).join("")}
+        <div class="tot"><span>Total</span><span>${esc(p.total_txt)}</span></div></div>
+      ${p.nota ? `<div class="info">${esc(p.nota)}</div>` : ""}
+      ${est ? `<p class="empty">${esc(est)}</p>${p.estado === "aceptado" ? `<a class="btn" href="${esc(turnos())}">Sacar turno</a>` : ""}`
+        : `<button class="btn" id="pr-si">Acepto el presupuesto</button><button class="btn sec" id="pr-no">No, gracias</button>`}
+      ${p.whatsapp ? `<a class="btn sec" href="${esc(p.whatsapp)}" target="_blank" rel="noopener">Consultar por WhatsApp</a>` : ""}`);
+    const resp = async acepta => {
+      try { await call("responderPresupuesto", {codigo: cod, acepta}); } catch (e) { return error(e.message); }
+      pantalla("", `<div class="done"><div class="ok">✓</div><h2>${acepta ? "¡Presupuesto aceptado!" : "Gracias por avisarnos"}</h2><div class="det"><div>${acepta ? `Ya le avisamos a ${esc(p.negocio)}. Ahora elegí el día y la hora para llevar el auto.` : "Si cambiás de idea o querés otra opción, escribinos."}</div></div></div>
+        ${acepta ? `<a class="btn" href="${esc(turnos())}">Elegir día y hora</a>` : ""}`);
+      $(".head") && $(".head").remove();
+    };
+    if ($("#pr-si")) { $("#pr-si").onclick = () => resp(true); $("#pr-no").onclick = () => resp(false); }
+  }
   function listo(r) {
     const cancelar = NOA.esDemo ? `${location.pathname}?demo=${NOA.demo}&c=${r.codigo}` : `${location.origin}/c/${r.codigo}`;
-    const tit = {pedido: "¡Pedido recibido!", clase: "¡Lugar reservado!", estadia: "¡Reserva tomada!"}[r.tipo] || (["cafe", "restaurante"].includes(INFO.rubro) ? "¡Mesa reservada!" : INFO.rubro === "canchas" ? "¡Cancha reservada!" : INFO.rubro === "inmobiliaria" ? "¡Visita coordinada!" : INFO.rubro === "estudio" ? "¡Reunión agendada!" : "¡Turno confirmado!");
+    const tit = {espera: "¡Estás en la lista de espera!", pedido: "¡Pedido recibido!", clase: "¡Lugar reservado!", estadia: "¡Reserva tomada!"}[r.tipo] || (["cafe", "restaurante"].includes(INFO.rubro) ? "¡Mesa reservada!" : INFO.rubro === "canchas" ? "¡Cancha reservada!" : INFO.rubro === "inmobiliaria" ? "¡Visita coordinada!" : INFO.rubro === "estudio" ? "¡Reunión agendada!" : "¡Turno confirmado!");
     pantalla("", `<div class="done"><div class="ok">✓</div><h2>${tit}</h2>
       <div class="det"><div><b>${esc(r.titulo)}</b>${r.precio ? " · " + esc(r.precio) : ""}</div><div>${r.tipo === "pedido" ? "" : "El "}${esc(r.cuando)}</div>${(r.detalle || []).map(d => `<div>${esc(d)}</div>`).join("")}</div></div>
-      ${r.avisar ? `<a class="btn wa" href="${esc(r.avisar)}" target="_blank" rel="noopener">${r.tipo === "estadia" ? "Mandar el comprobante por WhatsApp" : "Avisar al negocio por WhatsApp"}</a>` : ""}
-      <a class="btn sec" href="${esc(cancelar)}">${r.tipo === "pedido" ? "Cancelar el pedido" : r.tipo === "estadia" ? "Cancelar la reserva" : "Si no podés ir, cancelalo acá"}</a>
+      ${r.pagar ? `<a class="btn mp" id="pagar" href="${esc(r.pagar)}" ${r.pagar.startsWith("#") ? "" : 'target="_blank" rel="noopener"'}>Pagar la seña de ${esc(r.sena)} con Mercado Pago</a>` : ""}
+      ${r.avisar ? `<a class="btn ${r.pagar ? "sec" : "wa"}" href="${esc(r.avisar)}" target="_blank" rel="noopener">${r.tipo === "estadia" ? "Mandar el comprobante por WhatsApp" : "Avisar al negocio por WhatsApp"}</a>` : ""}
+      ${r.tipo === "espera" ? "" : `<a class="btn sec" href="${esc(cancelar)}">${r.tipo === "pedido" ? "Cancelar el pedido" : r.tipo === "estadia" ? "Cancelar la reserva" : "Si no podés ir, cancelalo acá"}</a>`}
       <button class="btn sec" id="otra">${r.tipo === "pedido" ? "Seguir comprando" : "Hacer otra reserva"}</button>`);
     $(".head").remove();
     $("#otra").onclick = () => ir(TAB);
+    if (r.pagar && r.pagar.startsWith("#mp-demo:")) $("#pagar").onclick = ev => { ev.preventDefault(); pagoSimulado(r); };
+    if (r.pagar) $(".done h2").textContent = r.tipo === "estadia" ? "¡Reserva tomada!" : "¡Turno reservado!";
   }
 
   // ── Cancelar ──────────────────────────────────────────────────────
@@ -346,7 +462,11 @@
     $("#tabs").innerHTML = "";
     let r;
     try { r = await call("reserva", {codigo: cod}); } catch (e) { pantalla("No encontramos esa reserva", `<p class="empty">Revisá el link o escribile al negocio.</p>`); return; }
-    if (r.estado !== "confirmado") { pantalla("Esta reserva ya no está activa", `<div class="sum"><b>${esc(r.titulo)}</b><span>${esc(r.cuando)}</span><span>${esc(r.estado)}</span></div>`); return; }
+    if (r.estado !== "confirmado") {
+      const txt = {vencido: "Venció: pasó el tiempo para retirarlo. Si todavía lo querés, escribile al negocio.", cancelado: "Está cancelada.", cancelada: "Está cancelada.",
+                   entregado: "Ya fue entregado.", listo: "Ya está listo para retirar.", asistio: "Ya pasó.", ausente: "Ya pasó.", finalizada: "Ya pasó."}[r.estado] || r.estado;
+      pantalla(r.estado === "listo" ? "Tu pedido está listo" : "Esta reserva ya no está activa", `<div class="sum"><b>${esc(r.titulo)}</b><span>${esc(r.cuando)}</span><span>${esc(txt)}</span></div>${r.whatsapp ? `<a class="btn" href="https://wa.me/${esc(r.whatsapp)}" target="_blank" rel="noopener">Escribir al negocio</a>` : ""}`); return;
+    }
     pantalla(r.tipo === "pedido" ? "¿Cancelás el pedido?" : "¿Cancelás tu reserva?", `<div class="sum"><b>${esc(r.titulo)}</b><span>El ${esc(r.cuando)}</span></div>
       <button class="btn" id="si" style="background:var(--crit)">Sí, cancelar</button><a class="btn sec" href="${NOA.esDemo ? `?demo=${NOA.demo}` : "/r/" + (NOA.slug || "")}">No, volver</a>`);
     $("#si").onclick = async () => {
