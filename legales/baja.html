@@ -3,20 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Baja del servicio · NOA Labs</title>
+<title>Botón de baja · NOA Labs</title>
+<meta name="description" content="Botón de baja de NOA Labs, Salta, Argentina.">
 <link rel="icon" href="../assets/img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
 <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html"><img src="../assets/img/noa-labs-icono.png" alt=""><span>NOA LABS<span class="sl">/</span></span></a><nav class="nav" style="display:flex"><a href="../index.html">← Volver al inicio</a></nav></div></header>
-<main class="doc"><h1 class="disp">Baja del servicio<span class="sl">/</span></h1><p class="upd">Última actualización: noviembre de 2026</p>
-<p>Podés dar de baja tu abono cuando quieras, sin penalidades, avisándonos con al menos 30 días de anticipación por WhatsApp o Instagram.</p>
-<p>Al dar de baja, te entregamos una copia completa de tus datos en un formato de uso común (Excel o CSV) y desactivamos el sistema al final del período ya abonado.</p>
-<p><a class="btn btn-primary" data-wa="Hola NOA Labs, quiero dar de baja mi servicio." href="../index.html#contacto">Pedir la baja por WhatsApp</a></p></main>
-<footer class="foot"><div class="wrap fbottom" style="margin-top:0;border-top:0"><span>© <span data-year>2026</span> NOA Labs · Salta, Argentina</span><a href="../index.html#contacto" style="color:var(--dust)">Contacto</a></div></footer>
+<a class="skip" href="#contenido">Ir al contenido</a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><img src="../assets/img/noa-labs-icono.png" alt=""><span>NOA LABS<span class="sl">/</span></span></a><nav class="nav" style="display:flex" aria-label="Principal"><a href="../index.html">← Volver al inicio</a></nav></div></header>
+<main class="doc" id="contenido"><h1 class="disp">Botón de baja<span class="sl">/</span></h1><p class="upd">Última actualización: noviembre de 2026</p>
+
+<p>Podés dar de baja el abono mensual cuando quieras, sin penalidades, sin registrarte y sin dar motivos.</p>
+<form class="lead-form legal-form" id="f-legal" data-tipo="BAJ" novalidate>
+  <label for="lf-n">Nombre y apellido</label><input id="lf-n" autocomplete="name" required>
+  <label for="lf-c">Celular o mail donde te respondemos</label><input id="lf-c" autocomplete="tel" required>
+  <label for="lf-s">Nombre del negocio <span class="opt">(opcional)</span></label><input id="lf-s" autocomplete="organization">
+  <p class="err" id="lf-err" role="alert"></p>
+  <button class="btn btn-primary" type="submit">Dar de baja el servicio</button>
+</form>
+<div id="lf-ok" class="legal-ok" hidden tabindex="-1"></div>
+<h2>Qué pasa después</h2>
+<ul>
+<li>Al tocar el botón se genera un código de trámite. Dentro de las 24 horas te confirmamos la baja por el mismo medio, con ese código.</li>
+<li>No se cobra el mes siguiente. El sistema sigue andando hasta el final del mes ya pagado.</li>
+<li>Te entregamos una copia completa de tus datos en planillas de Excel y, dentro de los 30 días, los borramos de nuestros servidores.</li>
+</ul>
+
+</main>
+<footer class="foot">
+  <div class="wrap legal-btns"><a class="lbtn" href="../legales/arrepentimiento.html">Botón de arrepentimiento</a><a class="lbtn" href="../legales/baja.html">Botón de baja</a></div>
+  <div class="wrap fbottom legal-links"><span>© <span data-year>2026</span> NOA Labs · Salta, Argentina</span><nav aria-label="Legales"><a href="../legales/terminos.html">Términos y condiciones</a><a href="../legales/privacidad.html">Política de privacidad</a><a href="../legales/cookies.html">Política de cookies</a><a href="../legales/integraciones.html">Servicios de terceros</a><a href="../legales/accesibilidad.html">Accesibilidad</a></nav></div>
+</footer>
 <script src="../assets/js/site.js"></script>
+<script src="../assets/js/legales.js"></script>
 <script>/* Estadísticas de visitas (GoatCounter, sin cookies): solo en la web pública */if(["noalabsarg.github.io","noalabs.com.ar","www.noalabs.com.ar"].includes(location.hostname)){var g=document.createElement("script");g.async=true;g.src="https://gc.zgo.at/count.js";g.dataset.goatcounter="https://noalabs.goatcounter.com/count";document.head.appendChild(g);}</script>
 </body>
 </html>

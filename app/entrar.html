@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Entrar al panel</title>
+<link rel="stylesheet" href="fuentes.css">
 <link rel="stylesheet" href="panel.css">
 <style>
   body{display:grid;place-items:center;min-height:100vh;background:#F4F6F9}
@@ -14,6 +15,7 @@
 </style>
 </head>
 <body>
+<main>
 <form class="box" id="f" novalidate>
   <h1>Entrar al panel</h1>
   <p>Con el usuario y la contraseña que te dio el dueño del negocio.</p>
@@ -22,21 +24,7 @@
   <div id="err"></div>
   <button class="b p" id="ok">Entrar</button>
 </form>
-<script>
-  const $ = s => document.querySelector(s);
-  $("#f").onsubmit = async ev => {
-    ev.preventDefault();
-    const b = $("#ok"); b.disabled = true; b.textContent = "Entrando…"; $("#err").innerHTML = "";
-    try {
-      const r = await fetch("/api/entrar", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({usuario: $("#u").value.trim(), clave: $("#c").value})});
-      const j = await r.json();
-      if (!r.ok) throw new Error((j.detail && j.detail.msg) || "No se pudo entrar.");
-      location.href = j.panel;
-    } catch (e) {
-      $("#err").innerHTML = `<div class="err">${String(e.message).replace(/[<>&]/g, "")}</div>`;
-      b.disabled = false; b.textContent = "Entrar";
-    }
-  };
-</script>
+</main>
+<script src="entrar.js"></script>
 </body>
 </html>

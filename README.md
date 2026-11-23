@@ -16,7 +16,8 @@ demo/index.html?r=<rubro>     Demo de cada rubro (hay un selector arriba para ca
    Alojamiento:  cabanas, inmobiliaria
 app/                          Página del cliente, panel del dueño, Excel y las reglas de la demo (noa-demo-backend.js)
 noa-planta/index.html         Industria: dashboard, mapa, equipos, vibraciones, repuestos, OT
-legales/                      Términos, privacidad y baja del servicio
+legales/                      Términos, privacidad, cookies, reembolsos, terceros, accesibilidad,
+                              botón de arrepentimiento y botón de baja (los arma build_legales.py)
 404.html                      Página de error
 assets/                       Estilos, scripts del sitio, fotos y videos de las demos
 robots.txt, sitemap.xml       SEO básico
@@ -108,3 +109,15 @@ Entrá a https://app.netlify.com/drop y arrastrá la carpeta completa. Para el d
 - Las demos usan datos ficticios y se reinician al recargar.
 - Tipografías: Anton, Archivo e IBM Plex Mono (Google Fonts).
 - Fotos: propias, tomadas en la Puna salteña y la Quebrada de Humahuaca.
+
+## Antes de cobrar el primer trabajo
+
+En `legales/` faltan los datos del titular (nombre, CUIT, domicilio y un mail de contacto), que la ley de comercio
+electrónico pide que estén a la vista. Mientras no estén, las páginas dicen que se publican al terminar la inscripción.
+Para cargarlos: completá `TITULAR`, `CUIT`, `DOMICILIO` y `EMAIL` arriba de todo en `herramientas/build_legales.py` y corré `python3 herramientas/build_legales.py`,
+o pedímelo y lo hago.
+
+## Fuentes tipográficas
+
+Archivo, Anton e IBM Plex Mono están en `assets/fonts/` (licencia SIL OFL, incluida). Se sirven desde la propia web,
+así el navegador de quien visita no se conecta a Google.
