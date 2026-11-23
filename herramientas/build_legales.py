@@ -8,7 +8,7 @@ ACT = "noviembre de 2026"
 
 TITULAR = "Ian Herrera"       # ej: "Ian Herrera Schein"  (nombre y apellido, o razón social si hacen una sociedad)
 CUIT = "20-44445990-6"          # ej: "20-12345678-9"
-DOMICILIO = "Salta Capital, provincia de Salta"     # ej: "Calle 123, Salta Capital"  (dirección física: la pide la Res. 270/2020)
+DOMICILIO = "Luis Piedrabuena 780, Salta Capital, provincia de Salta"     # ej: "Calle 123, Salta Capital"  (dirección física: la pide la Res. 270/2020)
 EMAIL = "herreraian07@gmail.com"         # ej: "hola@noalabs.com.ar"
 WA_TXT = "+54 9 387 612-4879"
 HORARIO = "todos los días, las 24 horas"
