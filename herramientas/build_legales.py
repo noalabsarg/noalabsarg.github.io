@@ -11,7 +11,7 @@ CUIT = "20-44445990-6"          # ej: "20-12345678-9"
 DOMICILIO = "Luis Piedrabuena 780, Salta Capital, provincia de Salta"     # ej: "Calle 123, Salta Capital"  (dirección física: la pide la Res. 270/2020)
 EMAIL = "herreraian07@gmail.com"         # ej: "hola@noalabs.com.ar"
 WA_TXT = "+54 9 387 612-4879"
-HORARIO = "todos los días, las 24 horas"
+HORARIO = "de lunes a sábado, de 9 a 20"   # confirmar con Ian el horario real
 
 DEFENSA = "https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario"
 LEY_24240 = "https://www.argentina.gob.ar/normativa/nacional/ley-24240-638/texto"
@@ -146,7 +146,7 @@ pagina("terminos", "Términos y condiciones", f'''
 <h2>5. Lo que hacemos nosotros</h2>
 <ul>
 <li>Mantener el sistema funcionando, actualizado y con copias de seguridad.</li>
-<li>Responder consultas {HORARIO} y arreglar sin cargo lo que no funcione como se acordó.</li>
+<li>Responder consultas {HORARIO}, y lo que frene la caja o la agenda apenas lo veamos, cualquier día. Arreglar sin cargo lo que no funcione como se acordó.</li>
 <li>Avisarte con anticipación cuando haya que hacer un mantenimiento que corte el servicio.</li>
 </ul>
 <p>Hacemos todo lo razonable para que el sistema esté disponible siempre, pero puede haber cortes por fallas de proveedores (servidores, internet, Meta, Mercado Pago) que no dependen de nosotros.</p>
