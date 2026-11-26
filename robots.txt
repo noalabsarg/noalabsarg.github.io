@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://noalabsarg.github.io/sitemap.xml
+Sitemap: https://noalabs.com.ar/sitemap.xml

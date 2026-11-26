@@ -74,15 +74,18 @@ y entrá a http://localhost:8000
 3. En el repositorio: **Settings → Pages → Source: Deploy from a branch → main / (root)** → Save.
 4. En 1 o 2 minutos queda en `https://TU_USUARIO.github.io/noalabs-web/`.
 5. Para que el link sea `https://noalabsarg.github.io` (sin carpeta al final), el repositorio tiene que estar en la organización `noalabsarg` y llamarse exactamente `noalabsarg.github.io`.
-6. Dominio propio (`noalabs.com.ar`), cuando lo tengas:
-   1. Registrá el dominio en https://nic.ar con tu CUIT y clave fiscal.
-   2. NIC Argentina no administra registros DNS: hay que **delegar** el dominio. Creá una cuenta gratis en https://dash.cloudflare.com, agregá `noalabs.com.ar` (plan Free) y copiá los 2 *nameservers* que te da.
-   3. En NIC Argentina: **Mis dominios → noalabs.com.ar → Delegaciones** y cargá esos 2 nameservers. La delegación puede tardar unas horas.
-   4. En Cloudflare → **DNS → Records** agregá (con la nube en gris, "DNS only"):
-      - 4 registros **A** para `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-      - 1 registro **CNAME** para `www` → `noalabsarg.github.io`
-   5. Creá en la raíz del repositorio un archivo llamado `CNAME` (sin extensión) que tenga solo esta línea: `noalabs.com.ar`
-   6. En GitHub: **Settings → Pages → Custom domain** → `noalabs.com.ar` → Save. Cuando aparezca el tilde verde, activá **Enforce HTTPS**.
+6. Dominio propio (`noalabs.com.ar`). El archivo `CNAME` (en la raíz) le dice a GitHub Pages qué dominio usar: apenas llega al repo,
+   `noalabsarg.github.io` empieza a redirigir al dominio. Por eso **primero el DNS y después subir el `CNAME`**, si no la web queda caída un rato.
+   1. NIC Argentina no administra registros DNS: hay que **delegar** el dominio. Creá una cuenta gratis en https://dash.cloudflare.com, agregá `noalabs.com.ar` (plan Free) y anotá los 2 *nameservers* que te da.
+   2. En https://nic.ar: **Mis dominios → noalabs.com.ar → Delegaciones** y cargá esos 2 nameservers (sin IP). Tarda de minutos a unas horas.
+   3. En Cloudflare → **DNS → Records**, todos con la nube en gris ("DNS only", si no GitHub no puede sacar el certificado):
+      - 4 registros **A**, nombre `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+      - 4 registros **AAAA**, nombre `@`: `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+      - 1 registro **CNAME**, nombre `www` → `noalabsarg.github.io`
+   4. En GitHub, organización `noalabsarg` → **Settings → Pages → Add a domain** → `noalabs.com.ar`: te da un registro **TXT** para cargar en Cloudflare y después **Verify**. Así nadie más puede usar el dominio en otro GitHub.
+   5. Recién ahora subí la web con el `CNAME` (o cargá `noalabs.com.ar` a mano en el repo → **Settings → Pages → Custom domain**). Cuando dé el tilde verde y el certificado (puede tardar hasta un día), activá **Enforce HTTPS** ahí mismo.
+   6. Queda una sola versión: `www.noalabs.com.ar` y `noalabsarg.github.io` redirigen solas (301) a `https://noalabs.com.ar`.
+   7. En Google Search Console agregá la propiedad `noalabs.com.ar` (tipo Dominio, con otro TXT en Cloudflare) y mandá `https://noalabs.com.ar/sitemap.xml`.
 
 ### Opción B · Netlify (gratis)
 
@@ -100,7 +103,6 @@ Entrá a https://app.netlify.com/drop y arrastrá la carpeta completa. Para el d
 - [ ] Número de WhatsApp definitivo en `assets/js/site.js` e `index.html`.
 - [ ] Revisar con un abogado o contador los textos de `legales/` y agregar titular y CUIT si corresponde.
 - [ ] Confirmar el usuario de Instagram (`@noalabsarg`).
-- [ ] Cuando tengas el dominio: cambiar `noalabsarg.github.io` por `noalabs.com.ar` en `sitemap.xml` y `robots.txt`.
 - [ ] Actualizar "QUEDAN 5 LUGARES" en `index.html` a medida que se sumen negocios.
 - [ ] Si se agregan clientes reales, sumar una sección "Ya trabajan con NOA Labs" con su autorización.
 
