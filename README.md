@@ -31,11 +31,11 @@ Si ya tenías subida una versión anterior en GitHub, borrá las carpetas `noa-l
 Abrí `assets/js/site.js` y cambiá la línea:
 
 ```js
-const WHATSAPP = "5493876124879";
+const WHATSAPP = "5493872265167";
 ```
 
-Formato: `549` + característica sin 0 + número sin 15. Ejemplo: 387 15 612-4879 → `5493876124879`.
-Después buscá `+54 9 387 612-4879` en `index.html` y reemplazalo por el número nuevo (es el texto que se ve).
+Formato: `549` + característica sin 0 + número sin 15. Ejemplo: 387 15 226-5167 → `5493872265167`.
+El texto que se ve está en `herramientas/build_index.py` y en `WA_TXT` de `web/herramientas/build_legales.py`: cambialo ahí y regenerá las páginas.
 
 ## Estadísticas de visitas (opcional, gratis)
 
